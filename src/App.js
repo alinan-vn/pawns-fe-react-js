@@ -1,26 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import MenuBar from './Components/MenuBar'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import HomeFeed from './Components/HomeFeed'
+import Tournaments from './Components/Tournaments'
+import Profile from './Components/Profile'
+import Login from './Components/Login'
+
+import PlaceHolding from './Components/PlaceHolding'
+
+
+import {
+  BrowserRouter as Router,
+  Route
+} from 'react-router-dom'
+
+class App extends React.Component {
+
+  render(){
+    return(
+      <Router>
+        <MenuBar />
+        <Route exact path ='/' component= { HomeFeed } />
+        <Route exact path ='/tournaments' component= { Tournaments } />
+        <Route exact path ='/profile' component= { Profile } />
+        <Route exact path ='/login' component= { Login } />
+
+        <Route exact path ='/placeholding' component= { PlaceHolding } />
+        
+      </Router>
+    )
+  }
 }
 
 export default App;
