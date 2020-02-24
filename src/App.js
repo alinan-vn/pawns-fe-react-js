@@ -8,6 +8,8 @@ import Login from './Components/Login'
 
 import PlaceHolding from './Components/PlaceHolding'
 
+import { connect } from 'react-redux'
+
 
 import {
   BrowserRouter as Router,
@@ -19,6 +21,7 @@ class App extends React.Component {
   render(){
     return(
       <Router>
+        {console.log('APP', this.props.currentUser)}
         <MenuBar />
         <Route exact path ='/' component= { HomeFeed } />
         <Route exact path ='/tournaments' component= { Tournaments } />
@@ -32,4 +35,10 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.currentUser
+  }
+}
+
+export default connect(mapStateToProps)(App);

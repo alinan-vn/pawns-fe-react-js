@@ -1,13 +1,8 @@
-function rootReducer (
-    state = {
-        currentUser: null
-    },
-    action
-){
-    switch(action.type){
-        default:
-            return state
-    }
-}
+import { combineReducers } from 'redux'
+import authReducer from './authReducer'
+import articleReducer from './articleReducer'
 
-export default rootReducer
+export default combineReducers({
+    authReducer,
+    articleReducer
+})
