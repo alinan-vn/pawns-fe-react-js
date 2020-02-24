@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Form, Input, Button } from 'semantic-ui-react'
+import { Grid, Form, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import {loginUser} from '../Actions/auth'
 
@@ -53,6 +53,7 @@ class Login extends React.Component{
         return(
             <Grid>
                 <Grid.Column width={4} />
+                { console.log('logggg', this.props)}
 
                 <Grid.Column width={8}>
                     <Form>

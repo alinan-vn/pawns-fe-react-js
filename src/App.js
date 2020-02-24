@@ -1,10 +1,11 @@
 import React from 'react';
 import MenuBar from './Components/MenuBar'
 
-import HomeFeed from './Components/HomeFeed'
+import HomeFeed from './Components/Dashboard/HomeFeed'
 import Tournaments from './Components/Tournaments'
 import Profile from './Components/Profile'
 import Login from './Components/Login'
+import Article from './Components/Card/Article'
 
 import PlaceHolding from './Components/PlaceHolding'
 
@@ -18,6 +19,16 @@ import {
 
 class App extends React.Component {
 
+  setArticleRoute = () => {
+    console.log(this.props)
+    if (false){
+      return `/article${this.props.article.id}` 
+    }
+    else {
+      return '/article'
+    }
+  }
+
   render(){
     return(
       <Router>
@@ -27,6 +38,8 @@ class App extends React.Component {
         <Route exact path ='/tournaments' component= { Tournaments } />
         <Route exact path ='/profile' component= { Profile } />
         <Route exact path ='/login' component= { Login } />
+        {/* <Route exact path ={ this.setArticleRoute() } component= { Article} /> */}
+        <Route exact path ='/articles/:id' component= { Article} />
 
         <Route exact path ='/placeholding' component= { PlaceHolding } />
         
@@ -37,7 +50,7 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.currentUser
+    article: state.articleReducer.article
   }
 }
 

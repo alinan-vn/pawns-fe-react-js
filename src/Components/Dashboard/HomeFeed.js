@@ -6,6 +6,9 @@ import SideBarTwo from './SideBarTwo'
 import MainFeed from './MainFeed'
 
 class HomeFeed extends React.Component {
+    constructor(props){
+        super(props)
+    }
 
     render(){
         return(

@@ -5,8 +5,22 @@ const saveArticles = articles => {
     }
 }
 
+const currentArticle = article => {
+    return {
+        type: 'CHANGE_ARTICLE',
+        article
+    }
+}
+
+const clearArticle = () => {
+    return {
+        type: 'CLEAR_ARTICLE'
+    }
+}
 
 
 export {
-    saveArticles
+    saveArticles,
+    currentArticle,
+    clearArticle
 }

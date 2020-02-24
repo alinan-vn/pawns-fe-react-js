@@ -1,15 +1,26 @@
 function articleReducer (
     state = {
-        articles: []
+        articles: [],
+        article: false
     },
     action
 ){
     switch(action.type){
         case 'SAVE_ARTICLES':
-            console.log('saving articles: ', action.articles)
             return {
                 ...state,
                 articles: action.articles
+            }
+        case 'CHANGE_ARTICLE':
+            console.log('reducing', action.article)
+            return {
+                ...state,
+                article: action.article
+            }
+        case 'CLEAR_ARTICLE':
+            return {
+                ...state,
+                article: null
             }
         default:
             return state
