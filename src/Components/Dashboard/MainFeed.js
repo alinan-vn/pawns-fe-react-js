@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Header, Button } from 'semantic-ui-react'
 import { saveArticles, currentArticle } from '../../Actions/articles'
+import { loginUser } from '../../Actions/auth'
 import { connect } from 'react-redux'
 
 import { withRouter } from 'react-router-dom'
@@ -42,13 +43,31 @@ class MainFeed extends React.Component {
 
     componentDidMount(){
         this.fetchArticles()
+
+        const token = localStorage.getItem('token')
+        if (!token){
+          this.props.history.push('/login')
+        } else {
+            const reqObj = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+
+
+            fetch('http://localhost:3000/current_user', reqObj)
+            .then(resp => resp.json())
+            .then(user => {
+                this.props.loginUser(user)
+            })
+        }
     }
 
     render(){
         return(
             <div>
-                { console.log('this', this.props)}
-
                 { this.articleCards() }
             </div> 
         )
@@ -64,7 +83,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         saveArticles: articles => dispatch(saveArticles(articles)),
-        currentArticle: article => dispatch(currentArticle(article))
+        currentArticle: article => dispatch(currentArticle(article)),
+        loginUser: user => dispatch(loginUser(user))
     }
 }
 

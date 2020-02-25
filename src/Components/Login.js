@@ -38,9 +38,10 @@ class Login extends React.Component{
         fetch('http://localhost:3000/auth', reqObj)
         .then(resp => resp.json())
         .then(user => {
-            console.log('correct user?', user)
+            // console.log('correct user?', user)
             if (!user.error){
-                this.props.loginUser(user)
+                localStorage.setItem('token', user.token)
+                this.props.loginUser({id: user.id, username: user.username})
                 this.props.history.push('/')
             } else {
                 alert(user.error)
@@ -53,7 +54,6 @@ class Login extends React.Component{
         return(
             <Grid>
                 <Grid.Column width={4} />
-                { console.log('logggg', this.props)}
 
                 <Grid.Column width={8}>
                     <Form>

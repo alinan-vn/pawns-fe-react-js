@@ -11,7 +11,6 @@ import PlaceHolding from './Components/PlaceHolding'
 
 import { connect } from 'react-redux'
 
-
 import {
   BrowserRouter as Router,
   Route
@@ -19,26 +18,15 @@ import {
 
 class App extends React.Component {
 
-  setArticleRoute = () => {
-    console.log(this.props)
-    if (false){
-      return `/article${this.props.article.id}` 
-    }
-    else {
-      return '/article'
-    }
-  }
-
   render(){
     return(
       <Router>
-        {console.log('APP', this.props.currentUser)}
+        {/* {console.log('APP', this.props.currentUser)} */}
         <MenuBar />
         <Route exact path ='/' component= { HomeFeed } />
         <Route exact path ='/tournaments' component= { Tournaments } />
         <Route exact path ='/profile' component= { Profile } />
         <Route exact path ='/login' component= { Login } />
-        {/* <Route exact path ={ this.setArticleRoute() } component= { Article} /> */}
         <Route exact path ='/articles/:id' component= { Article} />
 
         <Route exact path ='/placeholding' component= { PlaceHolding } />
@@ -54,4 +42,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(App);
+export default (connect(mapStateToProps)(App))
