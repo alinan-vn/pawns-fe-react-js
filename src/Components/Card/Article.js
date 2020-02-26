@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {currentArticle, clearArticle } from '../../Actions/articles'
-import { Grid, Form, Button } from 'semantic-ui-react'
+import { Grid, Form, Button, Feed, Icon } from 'semantic-ui-react'
 
 
 class ArticleCard extends React.Component {
@@ -9,7 +9,8 @@ class ArticleCard extends React.Component {
         super()
         this.state ={
             voteCount: 0,
-            comments: []
+            comments: [],
+            users: []
         }
     }
 
@@ -27,7 +28,6 @@ class ArticleCard extends React.Component {
         fetch(`http://localhost:3000/get_votes_and_comments/${this.props.article.id}`)
         .then(resp => resp.json())
         .then(obj => {
-            console.log('correct object?', obj)
             this.setCountVotes(obj.votes)
             this.setComments(obj.comments)
         })
@@ -38,8 +38,6 @@ class ArticleCard extends React.Component {
             ...this.state,
             voteCount: voteArray.length
         })
-        console.log('all votes?', voteArray)
-
     }
 
     setComments = (commentArray) => {
@@ -47,7 +45,44 @@ class ArticleCard extends React.Component {
             ...this.state,
             comments: commentArray
         })
-        console.log('all comments?', commentArray)
+        commentArray.map(comment => {
+            this.fetchUser(comment.user_id)
+        })
+    }
+
+    fetchUser = (id) => {
+        return fetch(`http://localhost:3000/users/${id}`)
+        .then(resp => resp.json())
+        .then(user => this.setUser(user))
+    }
+
+    setUser = (user) => {
+        this.setState(prevState => {
+            return {
+                ...prevState,
+                users: [...prevState.users, user]
+            }
+        })
+    }
+
+    setCommentCards = () => {
+        return this.state.comments.map(comment => {
+            const user = this.state.users.find(user => user.id === comment.user_id)
+            return (
+                <Feed.Event key={ comment.id }>
+                    <Feed.Label>
+                        <img src={ user ? user.profile_pic   : 'https://react.semantic-ui.com/images/avatar/small/elliot.jpg' } />
+                    </Feed.Label>
+                    <Feed.Content>
+                        <Feed.Summary>
+                            <Feed.User>{ user ? user.username : comment.user_id}</Feed.User>
+                            <p><strong>{ comment.content }</strong></p>
+                        </Feed.Summary>
+                    </Feed.Content>
+                    <hr />
+                </Feed.Event>
+            )
+        })
     }
 
     textStyle = {
@@ -79,13 +114,11 @@ class ArticleCard extends React.Component {
                         </Grid>
                     </Form>
                     <hr />
-                    <Form>
+                    <Feed>
                         <h1>Comments: </h1>
-                        <p>stuff</p>
-                        <p>stuff</p>
-                        <p>stuff</p>
-                        <p>stuff</p>
-                    </Form>
+                        <hr />
+                        { this.setCommentCards() }
+                    </Feed>
 
                 </Grid.Column>
 

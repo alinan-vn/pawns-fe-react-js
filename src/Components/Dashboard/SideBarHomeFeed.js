@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Header, Button, List } from 'semantic-ui-react'
+import { Header, List } from 'semantic-ui-react'
 
 class SideBarHomeFeed extends React.Component {
     constructor(){

@@ -12,7 +12,6 @@ function articleReducer (
                 articles: action.articles
             }
         case 'CHANGE_ARTICLE':
-            console.log('reducing', action.article)
             return {
                 ...state,
                 article: action.article

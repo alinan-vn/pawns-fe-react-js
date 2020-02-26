@@ -1,15 +1,12 @@
 import React from 'react'
-import { Grid, List } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 
 import SideBar from './SideBarHomeFeed'
 import SideBarTwo from './SideBarTwo'
 import MainFeed from './MainFeed'
 
 class HomeFeed extends React.Component {
-    constructor(props){
-        super(props)
-    }
-
+    
     render(){
         return(
             <Grid>
