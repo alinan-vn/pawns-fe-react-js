@@ -17,6 +17,7 @@ import {
 } from 'react-router-dom'
 
 class App extends React.Component {
+  
 
   render(){
     return(
@@ -27,6 +28,8 @@ class App extends React.Component {
         <Route exact path ='/tournaments' component= { Tournaments } />
         <Route exact path ='/profile' component= { Profile } />
         <Route exact path ='/login' component= { Login } />
+        {/* <Route exact path ='/logout' component= { Login } /> */}
+
         <Route exact path ='/articles/:id' component= { Article} />
 
         <Route exact path ='/placeholding' component= { PlaceHolding } />
@@ -38,7 +41,8 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    article: state.articleReducer.article
+    article: state.articleReducer.article,
+    user: state.authReducer.user
   }
 }
 

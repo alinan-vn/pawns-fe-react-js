@@ -1,12 +1,18 @@
 import React from 'react';
 import { Dropdown, Menu } from 'semantic-ui-react'
 import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { logoutUser } from '../Actions/auth';
 
 class MenuBar extends React.Component {
 
+    logging = () => {
+      if (this.props.user){
+        localStorage.clear()
+        this.props.logoutUser()
+      }
+    }
     
-    
-
   render(){
     const link = {
         width: '100px',
@@ -16,7 +22,6 @@ class MenuBar extends React.Component {
         background: 'azure',
         textAlign: 'center'
     }
-
 
     return(
       <Menu>
@@ -141,8 +146,9 @@ class MenuBar extends React.Component {
                 activeStyle = {{
                 background: 'aquamarine'
                 }}
-            >
-                Log In
+                onClick={ () => this.logging() }
+              >
+                { this.props.user ? 'Logout' : 'Login' }
             </NavLink>
         </Menu.Menu>
       </Menu>
@@ -150,4 +156,16 @@ class MenuBar extends React.Component {
   }
 }
 
-export default MenuBar
+const mapStateToProps = state => {
+  return {
+    user: state.authReducer.user
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    logoutUser: () => dispatch(logoutUser())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MenuBar)

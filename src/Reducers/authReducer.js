@@ -1,12 +1,20 @@
 function authReducer (
-    state = null,
+    state = {
+        user: null
+    },
     action
 ){
     switch(action.type){
         case 'LOGIN_USER':
-            return action.user
-        case 'LOGOUT':
-            return null
+            return {
+                ...state,
+                user: action.user
+            }
+        case 'LOGOUT_USER':
+            return {
+                ...state,
+                user: null
+            }
         default:
             return state
     }

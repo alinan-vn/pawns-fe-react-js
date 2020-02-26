@@ -56,10 +56,10 @@ class MainFeed extends React.Component {
                 }
             }
 
-
             fetch('http://localhost:3000/current_user', reqObj)
             .then(resp => resp.json())
             .then(user => {
+                console.log('token to user', user)
                 this.props.loginUser(user)
             })
         }

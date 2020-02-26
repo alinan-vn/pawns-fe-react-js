@@ -77,6 +77,7 @@ class ArticleCard extends React.Component {
                         <Feed.Summary>
                             <Feed.User>{ user ? user.username : comment.user_id}</Feed.User>
                             <p><strong>{ comment.content }</strong></p>
+                            <Form.Input placeholder='Reply!'></ Form.Input>
                         </Feed.Summary>
                     </Feed.Content>
                     <hr />
