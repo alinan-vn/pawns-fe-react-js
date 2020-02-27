@@ -1,8 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {currentArticle, clearArticle } from '../../Actions/articles'
+import {currentArticle, clearArticle, passCleanState } from '../../Actions/articles'
 import { Grid, Form, Button, Feed, Icon } from 'semantic-ui-react'
-
+import { tokenValidation } from '../../Actions/userValidation'
+import { loginUser } from '../../Actions/auth'
 
 class ArticleCard extends React.Component {
     constructor(){
@@ -10,7 +11,9 @@ class ArticleCard extends React.Component {
         this.state ={
             voteCount: 0,
             comments: [],
-            users: []
+            users: [],
+            showCommentForm: false,
+            comment: ''
         }
     }
 
@@ -24,7 +27,7 @@ class ArticleCard extends React.Component {
         return date
     }
 
-    fetchVotes = () => {
+    fetchCommentsAndVotes = () => {
         fetch(`http://localhost:3000/get_votes_and_comments/${this.props.article.id}`)
         .then(resp => resp.json())
         .then(obj => {
@@ -86,13 +89,67 @@ class ArticleCard extends React.Component {
         })
     }
 
+    handleCommentChange = (event) => {
+        this.setState({
+            comment: event.target.value
+        })
+    }
+
+    saveComment = (e) => {
+        const commentData = {
+            content: this.state.comment,
+            article_id: this.props.article.id,
+            user_id: this.props.user.id
+        }
+
+        this.showCommentForm() // gets rid of comment form
+
+        const commentObj = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(commentData)
+        }
+
+        fetch('http://localhost:3000/comments', commentObj)
+        .then(resp => resp.json())
+        .then(json => {
+            this.fetchCommentsAndVotes() // refetches the comments for this specific article
+        })           
+    }
+
+    showCommentForm = () => {
+        this.setState(prevState => {
+            return({
+                ...this.state,
+                showCommentForm: !prevState.showCommentForm
+            })
+        })
+    }
+
+    commentForm = () => {
+        return (
+            <Form>
+                <Form.TextArea 
+                    placeholder='Leave a comment!'
+                    content={this.state.comment} 
+                    onChange={this.handleCommentChange} 
+                />
+                <Form.Button onClick={this.saveComment}>Submit</Form.Button>
+            </Form>
+        )
+    }
+
     textStyle = {
         textAlign: 'justify',
         textJustify: 'inter-word'
     }
 
     componentDidMount(){
-        this.fetchVotes()
+        this.fetchCommentsAndVotes()
+        tokenValidation(this.props)
     }
 
     render(){
@@ -101,7 +158,7 @@ class ArticleCard extends React.Component {
                 <Grid.Column width={4} />
 
                 <Grid.Column width={9}>
-                    <Form>
+                    <div>
                         <h1 style={{textAlign:'center'}}>{ this.props.article.title }</h1>
                         <p>Written by: { this.props.article.author }. Posted on: { this.dateTranslator() }</p>
                         <p style={this.textStyle}>{ this.props.article.content }</p>
@@ -109,11 +166,12 @@ class ArticleCard extends React.Component {
                             <Grid.Column width={2}>
                                 <Button content={ `${this.state.voteCount}` }  />
                             </Grid.Column>
+
                             <Grid.Column width={14}>
-                                <Form.Input placeholder='Leave a Comment!'></Form.Input>
+                                { this.state.showCommentForm ? this.commentForm() : <Button content='Leave a Comment?' onClick={ this.showCommentForm } />}                              
                             </Grid.Column>
                         </Grid>
-                    </Form>
+                    </div>
                     <hr />
                     <Feed>
                         <h1>Comments: </h1>
@@ -133,14 +191,17 @@ class ArticleCard extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        article: state.articleReducer.article
+        article: state.articleReducer.article,
+        user: state.authReducer.user,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         currentArticle: article => dispatch(currentArticle(article)),
-        clearArticle: () => dispatch(clearArticle())
+        clearArticle: () => dispatch(clearArticle()),
+        passCleanState: (json) => dispatch(passCleanState(json)),
+        loginUser: user => dispatch(loginUser(user))
     }
 }
 

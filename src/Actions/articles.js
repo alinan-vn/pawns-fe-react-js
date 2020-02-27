@@ -18,9 +18,17 @@ const clearArticle = () => {
     }
 }
 
+const passCleanState = (json) => {
+    return {
+        type: 'PASS_CLEAN_STATE',
+        json
+    }
+}
+
 
 export {
     saveArticles,
     currentArticle,
-    clearArticle
+    clearArticle,
+    passCleanState
 }

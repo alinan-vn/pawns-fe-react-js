@@ -3,7 +3,7 @@ import MenuBar from './Components/MenuBar'
 
 import HomeFeed from './Components/Dashboard/HomeFeed'
 import Tournaments from './Components/Tournaments'
-import Profile from './Components/Profile'
+import Profile from './ProfileData/Profile'
 import Login from './Components/Login'
 import Article from './Components/Card/Article'
 
@@ -28,7 +28,6 @@ class App extends React.Component {
         <Route exact path ='/tournaments' component= { Tournaments } />
         <Route exact path ='/profile' component= { Profile } />
         <Route exact path ='/login' component= { Login } />
-        {/* <Route exact path ='/logout' component= { Login } /> */}
 
         <Route exact path ='/articles/:id' component= { Article} />
 
