@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Grid, Container, Divider, Image } from 'semantic-ui-react'
+import { Grid, Image } from 'semantic-ui-react'
 import { loginUser } from '../../Actions/auth'
 import { tokenValidation } from '../../Actions/userValidation'
 import ProfileEditForm from './ProfileEdit'
@@ -9,8 +9,8 @@ class Profile extends React.Component {
     constructor(){
         super()
         this.state = {
-            profile_background: 'https://pic1.zhimg.com/v2-2639b252d8c714a382664247382f3be8_r.jpg',
-            profile_pic: 'https://lh3.googleusercontent.com/proxy/ozTvIKSwIE8N-toABYKivA7BqAHdrmGOhHS3gnZcn81ehU8N8KwvneT5WhD_HPPiWB3tAd9HOgSoPoSOkQ',
+            profile_background: '',
+            profile_pic: '',
             editting: false
         }
     }
@@ -40,21 +40,29 @@ class Profile extends React.Component {
         })
     }
 
-    componentWillMount(){
-        tokenValidation(this.props)
-        console.log('will mount', this.props.user)
+    checkProfilePicAndBack = () => {
+        if (this.state.profile_pic === ''){
+            this.setState({
+                ...this.state,
+                profile_pic: 'https://lh3.googleusercontent.com/proxy/ozTvIKSwIE8N-toABYKivA7BqAHdrmGOhHS3gnZcn81ehU8N8KwvneT5WhD_HPPiWB3tAd9HOgSoPoSOkQ'
+            })
+        }
+        if (this.state.profile_background === ''){
+            this.setState({
+                ...this.state,
+                profile_background: 'https://pic1.zhimg.com/v2-2639b252d8c714a382664247382f3be8_r.jpg'
+            })
+        }
     }
 
+
+
     componentDidMount(){
-        // tokenValidation(this.props)
-        console.log('did mount', this.props.user)
+        tokenValidation(this.props)
+        // console.log('did mount', this.props.user)
         this.setProfilePicAndBackground()
         // this.setEditFalse()
     }
-
-    // componentDidUpdate(){
-    //     this.setProfilePicAndBackground()
-    // }
 
     render(){
 
@@ -107,6 +115,8 @@ class Profile extends React.Component {
         console.log('edditing??', this.state.editting)
         return(
            <Grid>
+                { this.checkProfilePicAndBack() }
+                { console.log('checking state', this.state.profile_pic)}
                <Grid.Column width={3} />
                <Grid.Column width={10}>
                    { this.props.user && !this.state.editting ? profileInfo() : null }

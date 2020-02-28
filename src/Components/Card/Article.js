@@ -4,14 +4,13 @@ import {currentArticle, clearArticle, passCleanState } from '../../Actions/artic
 import { Grid, Form, Button, Feed, Icon } from 'semantic-ui-react'
 import { tokenValidation } from '../../Actions/userValidation'
 import { loginUser } from '../../Actions/auth'
+import Comments from './Comments'
 
 class ArticleCard extends React.Component {
     constructor(){
         super()
         this.state ={
             voteCount: 0,
-            comments: [],
-            users: [],
             showCommentForm: false,
             comment: ''
         }
@@ -27,12 +26,11 @@ class ArticleCard extends React.Component {
         return date
     }
 
-    fetchCommentsAndVotes = () => {
+    fetchVotes = () => {
         fetch(`http://localhost:3000/get_votes_and_comments/${this.props.article.id}`)
         .then(resp => resp.json())
         .then(obj => {
             this.setCountVotes(obj.votes)
-            this.setComments(obj.comments)
         })
     }
 
@@ -40,52 +38,6 @@ class ArticleCard extends React.Component {
         this.setState({
             ...this.state,
             voteCount: voteArray.length
-        })
-    }
-
-    setComments = (commentArray) => {
-        this.setState({
-            ...this.state,
-            comments: commentArray
-        })
-        commentArray.map(comment => {
-            this.fetchUser(comment.user_id)
-        })
-    }
-
-    fetchUser = (id) => {
-        return fetch(`http://localhost:3000/users/${id}`)
-        .then(resp => resp.json())
-        .then(user => this.setUser(user))
-    }
-
-    setUser = (user) => {
-        this.setState(prevState => {
-            return {
-                ...prevState,
-                users: [...prevState.users, user]
-            }
-        })
-    }
-
-    setCommentCards = () => {
-        return this.state.comments.map(comment => {
-            const user = this.state.users.find(user => user.id === comment.user_id)
-            return (
-                <Feed.Event key={ comment.id }>
-                    <Feed.Label>
-                        <img src={ user ? user.profile_pic   : 'https://react.semantic-ui.com/images/avatar/small/elliot.jpg' } />
-                    </Feed.Label>
-                    <Feed.Content>
-                        <Feed.Summary>
-                            <Feed.User>{ user ? user.username : comment.user_id}</Feed.User>
-                            <p><strong>{ comment.content }</strong></p>
-                            <Form.Input placeholder='Reply!'></ Form.Input>
-                        </Feed.Summary>
-                    </Feed.Content>
-                    <hr />
-                </Feed.Event>
-            )
         })
     }
 
@@ -116,7 +68,7 @@ class ArticleCard extends React.Component {
         fetch('http://localhost:3000/comments', commentObj)
         .then(resp => resp.json())
         .then(json => {
-            this.fetchCommentsAndVotes() // refetches the comments for this specific article
+            this.fetchVotes()
         })           
     }
 
@@ -148,7 +100,7 @@ class ArticleCard extends React.Component {
     }
 
     componentDidMount(){
-        this.fetchCommentsAndVotes()
+        this.fetchVotes()
         tokenValidation(this.props)
     }
 
@@ -156,7 +108,7 @@ class ArticleCard extends React.Component {
         return(
             <Grid>
                 <Grid.Column width={4} />
-                    { console.log('right user???', this.props.user) }
+                    {/* { console.log('right user???', this.props.user) } */}
                 <Grid.Column width={9}>
                     <div>
                         <h1 style={{textAlign:'center'}}>{ this.props.article.title }</h1>
@@ -173,11 +125,8 @@ class ArticleCard extends React.Component {
                         </Grid>
                     </div>
                     <hr />
-                    <Feed>
-                        <h1>Comments: </h1>
-                        <hr />
-                        { this.setCommentCards() }
-                    </Feed>
+
+                        <Comments />
 
                 </Grid.Column>
 
