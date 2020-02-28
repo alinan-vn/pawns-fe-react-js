@@ -1,37 +1,29 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Grid, Container, Divider, Image } from 'semantic-ui-react'
-import { loginUser } from '../Actions/auth'
-import { tokenValidation } from '../Actions/userValidation'
+import { loginUser } from '../../Actions/auth'
+import { tokenValidation } from '../../Actions/userValidation'
 import ProfileEditForm from './ProfileEdit'
 
 class Profile extends React.Component {
     constructor(){
         super()
         this.state = {
-            profile_background: 'https://i.imgur.com/ca5GXkg.jpg',
-            profile_pic: 'https://d2h1pu99sxkfvn.cloudfront.net/b0/14427198/520907985_m6TUWpNOFG/U5.jpg',
+            profile_background: 'https://pic1.zhimg.com/v2-2639b252d8c714a382664247382f3be8_r.jpg',
+            profile_pic: 'https://lh3.googleusercontent.com/proxy/ozTvIKSwIE8N-toABYKivA7BqAHdrmGOhHS3gnZcn81ehU8N8KwvneT5WhD_HPPiWB3tAd9HOgSoPoSOkQ',
             editting: false
         }
     }
 
-    setProfilePic = () => {
+    setProfilePicAndBackground = () => {
         if (this.props.user){
             this.setState({
                 ...this.state,
+                profile_background: this.props.user.profile_background,
                 profile_pic: this.props.user.profile_pic
             })
         }
         
-    }
-
-    setProfileBackground = () => {
-        if (this.props.user){
-            this.setState({
-                ...this.state,
-                profile_background: this.props.user.profile_background
-            })
-        }
     }
 
     handleEditStatus = () => {
@@ -48,13 +40,21 @@ class Profile extends React.Component {
         })
     }
 
+    componentWillMount(){
+        tokenValidation(this.props)
+        console.log('will mount', this.props.user)
+    }
 
     componentDidMount(){
-        tokenValidation(this.props)
-        this.setProfileBackground()
-        this.setProfilePic()
+        // tokenValidation(this.props)
+        console.log('did mount', this.props.user)
+        this.setProfilePicAndBackground()
         // this.setEditFalse()
     }
+
+    // componentDidUpdate(){
+    //     this.setProfilePicAndBackground()
+    // }
 
     render(){
 
@@ -102,8 +102,8 @@ class Profile extends React.Component {
                 </div>
             )
         }
-
-        // console.log('user props?', this.props.user)
+        
+        console.log('user props?', this.props.user)
         console.log('edditing??', this.state.editting)
         return(
            <Grid>

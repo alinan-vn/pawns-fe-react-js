@@ -148,7 +148,7 @@ class MenuBar extends React.Component {
                 }}
                 onClick={ () => this.logging() }
               >
-                { this.props.user ? 'Logout' : 'Login' }
+                { this.props.user ? 'Logout' : 'Login/SignUp' }
             </NavLink>
         </Menu.Menu>
       </Menu>

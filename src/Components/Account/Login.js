@@ -1,7 +1,9 @@
 import React from 'react'
 import { Grid, Form, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import {loginUser} from '../Actions/auth'
+import { loginUser } from '../../Actions/auth'
+import { withRouter } from 'react-router-dom'
+import CreateAccount from './CreateAccount'
 
 class Login extends React.Component{
     constructor(props){
@@ -49,6 +51,10 @@ class Login extends React.Component{
         })
     }
 
+    showCreateAccount = () => {
+        this.props.history.push('/create-account')
+    }
+
 
     render(){
         return(
@@ -68,7 +74,8 @@ class Login extends React.Component{
                             <label>Password</label>
                             <input name='password_digest' placeholder='password' onChange={this.handleInputChange} type='password' />
                         </Form.Field>
-                        <Button type='submit' onClick={false ? null : this.handleSubmit}>Sign In!</Button>
+                        <Button type='submit' onClick={this.handleSubmit}>Sign In!</Button>
+                        <Button type='submit' onClick={this.showCreateAccount}>Create an Account!</Button>
                     </Form>
                 </Grid.Column>
 
@@ -93,4 +100,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login))

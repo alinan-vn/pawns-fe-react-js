@@ -3,9 +3,10 @@ import MenuBar from './Components/MenuBar'
 
 import HomeFeed from './Components/Dashboard/HomeFeed'
 import Tournaments from './Components/Tournaments'
-import Profile from './ProfileData/Profile'
-import Login from './Components/Login'
+import Profile from './Components/ProfileData/Profile'
+import Login from './Components/Account/Login'
 import Article from './Components/Card/Article'
+import CreateAccount from './Components/Account/CreateAccount'
 
 import PlaceHolding from './Components/PlaceHolding'
 
@@ -24,14 +25,16 @@ class App extends React.Component {
       <Router>
         {/* {console.log('APP', this.props.currentUser)} */}
         <MenuBar />
-        <Route exact path ='/' component= { HomeFeed } />
-        <Route exact path ='/tournaments' component= { Tournaments } />
-        <Route exact path ='/profile' component= { Profile } />
-        <Route exact path ='/login' component= { Login } />
+        <Route exact path ='/' component={HomeFeed} />
+        <Route exact path ='/tournaments' component={Tournaments} />
+        <Route exact path ='/profile' component={Profile} />
+        <Route exact path ='/login' component={Login} />
+        <Route exact path ='/create-account' component={CreateAccount} />
 
-        <Route exact path ='/articles/:id' component= { Article} />
 
-        <Route exact path ='/placeholding' component= { PlaceHolding } />
+        <Route exact path ='/articles/:id' component={Article} />
+
+        <Route exact path ='/placeholding' component={PlaceHolding} />
         
       </Router>
     )

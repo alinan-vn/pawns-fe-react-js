@@ -156,7 +156,7 @@ class ArticleCard extends React.Component {
         return(
             <Grid>
                 <Grid.Column width={4} />
-
+                    { console.log('right user???', this.props.user) }
                 <Grid.Column width={9}>
                     <div>
                         <h1 style={{textAlign:'center'}}>{ this.props.article.title }</h1>
