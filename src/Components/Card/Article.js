@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {currentArticle, clearArticle, passCleanState } from '../../Actions/articles'
-import { Grid, Form, Button, Feed, Icon } from 'semantic-ui-react'
+import { Grid, Form, Button } from 'semantic-ui-react'
 import { tokenValidation } from '../../Actions/userValidation'
 import { loginUser } from '../../Actions/auth'
 import Comments from './Comments'
@@ -10,6 +10,7 @@ class ArticleCard extends React.Component {
     constructor(){
         super()
         this.state ={
+            article: null,
             voteCount: 0,
             showCommentForm: false,
             comment: ''
@@ -26,8 +27,15 @@ class ArticleCard extends React.Component {
         return date
     }
 
+    fetchArticles = () => {
+        fetch('http://localhost:3000/articles/')
+        .then(resp => resp.json())
+        .then(articles => this.props.saveArticles(articles))
+    }
+
     fetchVotes = () => {
-        fetch(`http://localhost:3000/get_votes_and_comments/${this.props.article.id}`)
+        console.log('que', this.props.match.params.id)
+        fetch(`http://localhost:3000/get_votes_and_comments/${this.props.match.params.id}`)
         .then(resp => resp.json())
         .then(obj => {
             this.setCountVotes(obj.votes)
@@ -99,7 +107,17 @@ class ArticleCard extends React.Component {
         textJustify: 'inter-word'
     }
 
+    setCurrentArticle = () => {
+        fetch(`http://localhost:3000/comments/${this.props.match.params.id}`)
+        .then(resp => resp.json())
+        .then(obj => {
+            this.props.currentArticle(obj)
+        })
+    }
+
     componentDidMount(){
+        // console.log('match', this.props.match)
+        // this.setCurrentArticle()
         this.fetchVotes()
         tokenValidation(this.props)
     }
@@ -108,8 +126,9 @@ class ArticleCard extends React.Component {
         return(
             <Grid>
                 <Grid.Column width={4} />
-                    {/* { console.log('right user???', this.props.user) } */}
+                    { console.log('checking article props', this.props.match.params.id) }
                 <Grid.Column width={9}>
+                    <p>{this.props.match.params.id}</p>
                     <div>
                         <h1 style={{textAlign:'center'}}>{ this.props.article.title }</h1>
                         <p>Written by: { this.props.article.author }. Posted on: { this.dateTranslator() }</p>
@@ -141,6 +160,7 @@ class ArticleCard extends React.Component {
 const mapStateToProps = state => {
     return {
         article: state.articleReducer.article,
+        articles: state.articleReducer.articles,
         user: state.authReducer.user,
     }
 }

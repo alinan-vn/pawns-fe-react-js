@@ -6,9 +6,10 @@ function profileReducer (
 ){
     switch(action.type){
         case 'CURRENT_PROFILE':
+            // console.log('hit from comments', action.user)
             return {
                 ...state,
-                user: action.user
+                currentProfile: action.user
             }
         default:
             return state

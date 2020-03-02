@@ -14,10 +14,17 @@ const store = createStore(
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 
+const siteStyle = {
+    background: '#FFEBCD'
+}
+
 ReactDOM.render(
-    <Provider store={ store }>
+    <div style={siteStyle}>
+        <Provider store={ store }>
         <App />
-    </Provider>, 
+        </Provider>
+    </div>
+    , 
     document.getElementById('root')
 );
 

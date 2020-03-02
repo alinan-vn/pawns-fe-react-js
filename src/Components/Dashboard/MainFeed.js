@@ -4,17 +4,14 @@ import { saveArticles, currentArticle } from '../../Actions/articles'
 import { loginUser } from '../../Actions/auth'
 import { tokenValidation } from '../../Actions/userValidation'
 import { connect } from 'react-redux'
+import '../../App.css'
 
 import { withRouter } from 'react-router-dom'
 
 class MainFeed extends React.Component {
-    constructor(props){
-        super(props)
-        
-    }
 
-    handleCurrentArticle = articleId => {
-        this.props.currentArticle(this.props.articles[articleId])
+    handleCurrentArticle = (articleId, ind) => {
+        this.props.currentArticle(this.props.articles[ind])
         this.props.history.push(`/articles/${articleId}`)
     }
 
@@ -27,7 +24,7 @@ class MainFeed extends React.Component {
                     <p>
                         { newContent }
                     </p>
-                    <Button onClick={ () => this.handleCurrentArticle(ind) } content='See More!' />                    
+                    <Button onClick={ () => this.handleCurrentArticle(article.id, ind) } content='See More!' />                    
                     <hr />
                 </Container>
             )
@@ -35,7 +32,6 @@ class MainFeed extends React.Component {
     }
 
     fetchArticles = () => {
-
         fetch('http://localhost:3000/articles/')
         .then(resp => resp.json())
         .then(articles => this.props.saveArticles(articles))
@@ -49,8 +45,9 @@ class MainFeed extends React.Component {
     }
 
     render(){
+
         return(
-            <div>
+            <div className='scrollContainer mainFont' >
                 { this.articleCards() }
             </div> 
         )

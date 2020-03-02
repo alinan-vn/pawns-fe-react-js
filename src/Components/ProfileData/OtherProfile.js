@@ -3,21 +3,34 @@ import { connect } from 'react-redux'
 import { Grid, Image } from 'semantic-ui-react'
 import { loginUser } from '../../Actions/auth'
 import { tokenValidation } from '../../Actions/userValidation'
-import ProfileEditForm from './ProfileEdit'
 import { withRouter } from 'react-router-dom'
 
 class viewProfile extends React.Component {
+    constructor(){
+        super()
+        this.state = {
+            profile_background: '',
+            profile_pic: ''
+        }
+    }
 
-
-
-
-    
+    setProfilePicAndBackground = () => {
+        if (this.props.profile){
+            this.setState({
+                ...this.state,
+                profile_background: this.props.profile.profile_background,
+                profile_pic: this.props.profile.profile_pic
+            })
+        }    
+    }
 
     componentDidMount(){
-        tokenValidation()
-        if (!this.props.currentProfile){
-            this.props.history.push('/')
-        }
+        tokenValidation(this.props)
+        console.log('compononet did mount', this.props.profile)
+        // debugger
+        // if (!this.props.profile){
+        //     this.props.history.push('/')
+        // }
     }
 
     render (){
@@ -25,7 +38,7 @@ class viewProfile extends React.Component {
         const profileBackgroungImg = {
             height: '100px',
             width: '100%',
-            backgroundImage: `url(${this.props.profile.profile_background})`,
+            backgroundImage: `url(${this.state.profile_background})`,
             borderRadius: '10px'
         }
 
@@ -43,7 +56,7 @@ class viewProfile extends React.Component {
                     <Image.Group size='tiny'>
                         <Image 
                             style={profilePicture}
-                            src={this.props.currentProfile.profile_pic} />
+                            src={this.state.profile_pic} />
                     </Image.Group>
                     
                 </div>
@@ -68,7 +81,8 @@ class viewProfile extends React.Component {
         return(
             <Grid>
                 <Grid.Column width={3} />
-
+                {/* { console.log('current profile correct?', this.props.currentProfile) } */}
+                
                 { this.props.profile ? profileComp() : <p>Loading</p>}
                 
             </Grid>
@@ -76,10 +90,17 @@ class viewProfile extends React.Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapDispatchToProps = dispatch => {
     return {
-        profile: state.profileReducer.currentProfile
+        loginUser: user => dispatch(loginUser(user))
     }
 }
 
-export default withRouter(connect(mapStateToProps)(viewProfile))
+const mapStateToProps = state => {
+    return {
+        profile: state.profileReducer.currentProfile,
+        num: state.profileReducer.num
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(viewProfile))

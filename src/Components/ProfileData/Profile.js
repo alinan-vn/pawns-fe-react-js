@@ -22,8 +22,7 @@ class Profile extends React.Component {
                 profile_background: this.props.user.profile_background,
                 profile_pic: this.props.user.profile_pic
             })
-        }
-        
+        }    
     }
 
     handleEditStatus = () => {

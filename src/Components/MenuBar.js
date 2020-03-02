@@ -1,155 +1,95 @@
 import React from 'react';
-import { Dropdown, Menu } from 'semantic-ui-react'
-import { NavLink } from 'react-router-dom'
+import { Menu, Image } from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logoutUser } from '../Actions/auth';
+import RookSketch from '../Images/rook_sketch.png' 
+import PawnSketchOne from '../Images/pawn_sketch_1.png'
+import PawnSketchTwo from '../Images/pawn_sketch_2.jpeg'
+
+// import '../App.css'
 
 class MenuBar extends React.Component {
 
-    logging = () => {
-      if (this.props.user){
-        localStorage.clear()
-        this.props.logoutUser()
-      }
+  logging = (e, { name }) => {
+    if (this.props.user){
+      localStorage.clear()
+      this.props.logoutUser()
+      this.props.history.push(name)
+    } else {
+      this.props.history.push(name)
     }
-    
+  }
+
+  handleRedirect = (e, { name }) => {
+    this.props.history.push(name)
+  }
+
   render(){
-    const link = {
-        width: '100px',
-        padding: '12px',
-        margin: '0 6px 6px',
-        fontWeight: 'bold',
-        background: 'azure',
-        textAlign: 'center'
+    const menuBar = {
+      height: '100%',
+      width: '100%',
+      background: '#A9A9A9'
+    }
+
+    const menuItem = {
+      background: '#808080',
+      width: '100px',
+      textAlign: 'center',
+      padding: '12px'
+    }
+
+    const logo = {
+      backgroundImage: `url(${RookSketch})`
     }
 
     return(
-      <Menu>
-
-
-        <NavLink
-            to = '/'
-            exact
-            style = {link}
-            className = "item"
-            activeStyle = {{
-              background: 'aquamarine'
-            }}
+      <Menu 
+        borderless={true}
+        inverted={true}
+        size={"large"}
+        fixed={'top'}
+      >
+        <Menu.Item 
+          name='/'
+          onClick={this.handleRedirect}
         >
-            pawns
-        </NavLink>
-        <NavLink
-            to = '/tournaments'
-            exact
-            style = {link}
-            className = "item"
-            activeStyle = {{
-              background: 'aquamarine'
-            }}
+          <Image 
+            src={PawnSketchTwo} 
+            // fluid={true}
+            size='mini'
+            circular={true}
+          />
+        </Menu.Item>
+        {/* <Menu.Item
+          style={menuItem}
+          name='/'
+          onClick={this.handleRedirect}
         >
-            Tournaments
-        </NavLink>
-        
-        <Dropdown text='Top Ten' pointing className='link item'>
-            <Dropdown.Menu>
-            <NavLink
-            to = '/placeholding'
-            exact
-            style = {link}
-            className = "item"
-            activeStyle = {{
-              background: 'aquamarine'
-            }}
-            >
-                Players
-            </NavLink>
-            <NavLink
-            to = '/placeholding'
-            exact
-            style = {link}
-            className = "item"
-            activeStyle = {{
-              background: 'aquamarine'
-            }}
-            >
-                Puzzles
-            </NavLink>
-            <NavLink
-            to = '/placeholding'
-            exact
-            style = {link}
-            className = "dropdown item"
-            activeStyle = {{
-              background: 'aquamarine'
-            }}
-            >
-                Games
-            </NavLink>
-          </Dropdown.Menu>
-        </Dropdown>
-
-        <Dropdown text='Database' pointing className='link item'>
-          <Dropdown.Menu>
-          <NavLink
-            to = '/placeholding'
-            exact
-            style = {link}
-            className = "item"
-            activeStyle = {{
-              background: 'aquamarine'
-            }}
-            >
-                Players
-            </NavLink>
-            <NavLink
-            to = '/placeholding'
-            exact
-            style = {link}
-            className = "item"
-            activeStyle = {{
-              background: 'aquamarine'
-            }}
-            >
-                Puzzles
-            </NavLink>
-            <NavLink
-            to = '/placeholding'
-            exact
-            style = {link}
-            className = "dropdown item"
-            activeStyle = {{
-              background: 'aquamarine'
-            }}
-            >
-                Games
-            </NavLink>
-          </Dropdown.Menu>
-        </Dropdown>
+          <Image 
+            src={PawnSketchTwo} 
+            // fluid={true}
+            size='mini'
+            circular={true}
+          />
+          pawns
+        </Menu.Item> */}
 
         <Menu.Menu position='right'>
-            <NavLink
-                to = '/profile'
-                exact
-                style = {link}
-                className = "item"
-                activeStyle = {{
-                background: 'aquamarine'
-                }}
-            >
-                Profile
-            </NavLink>
-            <NavLink
-                to = '/login'
-                exact
-                style = {link}
-                className = "item"
-                activeStyle = {{
-                background: 'aquamarine'
-                }}
-                onClick={ () => this.logging() }
-              >
-                { this.props.user ? 'Logout' : 'Login/SignUp' }
-            </NavLink>
+          <Menu.Item
+            style={menuItem}
+            name='/profile'
+            onClick={this.handleRedirect}
+          >
+            Profile
+          </Menu.Item>
+          <Menu.Item
+            style={menuItem}
+            name='/login'
+            onClick={this.logging}
+          >
+            { this.props.user ? 'Logout' : 'Login/SignUp' }
+          </Menu.Item>
         </Menu.Menu>
       </Menu>
     )
@@ -168,4 +108,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MenuBar)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MenuBar))

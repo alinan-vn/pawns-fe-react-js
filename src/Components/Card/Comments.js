@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { Feed, Form, Button } from 'semantic-ui-react'
+import { Feed, Form } from 'semantic-ui-react'
+import { currentProfile } from '../../Actions/user'
 
 
 class Comments extends React.Component {
@@ -14,7 +15,7 @@ class Comments extends React.Component {
     }
 
     fetchComments = () => {
-        fetch(`http://localhost:3000/get_votes_and_comments/${this.props.article.id}`)
+        fetch(`http://localhost:3000/get_votes_and_comments/${this.props.match.params.id}`)
         .then(resp => resp.json())
         .then(obj => {
             this.setComments(obj.comments)
@@ -26,7 +27,7 @@ class Comments extends React.Component {
             ...this.state,
             comments: commentArray
         })
-        commentArray.map(comment => {
+        commentArray.forEach(comment => {
             this.fetchUser(comment.user_id)
         })
     }
@@ -36,6 +37,17 @@ class Comments extends React.Component {
         .then(resp => resp.json())
         .then(user => this.setUser(user))
     }
+
+    pushProfile = (id) => {
+        fetch(`http://localhost:3000/users/${id}`)
+        .then(resp => resp.json())
+        .then(user => {
+            console.log('fetching a user?', user)
+            this.props.setProfile(user)
+        })
+
+        this.props.history.push(`/users/${id}`)
+    }  
 
     setUser = (user) => {
         this.setState(prevState => {
@@ -70,6 +82,11 @@ class Comments extends React.Component {
         }
     }
 
+    userProfile = (userId) => {
+        // console.log('this will send to that users profile', userId)
+        this.pushProfile(userId)
+    }
+
     setCommentCards = () => {
         return this.state.comments.map(comment => {
             const user = this.state.users.find(user => user.id === comment.user_id)
@@ -80,7 +97,7 @@ class Comments extends React.Component {
                     </Feed.Label>
                     <Feed.Content>
                         <Feed.Summary>
-                            <Feed.User>{ user ? user.username : comment.user_id}</Feed.User>
+                            <Feed.User onClick={() => this.userProfile(user.id)}>{ user ? user.username : comment.user_id}</Feed.User>
                             { user ? this.currentUserAndCommentUser(user.username, comment) : null }
                             <p><strong>{ comment.content }</strong></p>
                             <Form.Input placeholder='Reply!'></ Form.Input>
@@ -108,13 +125,20 @@ class Comments extends React.Component {
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return{
+        setProfile: user => dispatch(currentProfile(user))
+    }
+}
+
 const mapStateToProps = state => {
     return{
         article: state.articleReducer.article,
-        user: state.authReducer.user
+        user: state.authReducer.user,
+        currentProfile: state.profileReducer.currentProfile
     }
 }
 
 
 
-export default withRouter(connect(mapStateToProps)(Comments))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Comments))
