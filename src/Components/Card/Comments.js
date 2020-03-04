@@ -1,8 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { Feed, Form } from 'semantic-ui-react'
+import { Feed, Form, Button, Loader } from 'semantic-ui-react'
 import { currentProfile } from '../../Actions/user'
+import '../../App.css'
 
 
 class Comments extends React.Component {
@@ -10,7 +11,9 @@ class Comments extends React.Component {
         super()
         this.state = {
             comments: [],
-            users: []
+            users: [],
+            showCommentForm: false,
+            comment: ''
         }
     }
 
@@ -74,6 +77,59 @@ class Comments extends React.Component {
         .then(json => {this.fetchComments()})
     }
 
+    handleCommentChange = (event) => {
+        this.setState({
+            comment: event.target.value
+        })
+    }
+
+    saveComment = (e) => {
+        const commentData = {
+            content: this.state.comment,
+            article_id: this.props.article.id,
+            user_id: this.props.user.id
+        }
+
+        this.showCommentForm() // gets rid of comment form
+
+        const commentObj = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(commentData)
+        }
+
+        fetch('http://localhost:3000/comments', commentObj)
+        .then(resp => resp.json())
+        .then(json => {
+            this.fetchComments()
+        })           
+    }
+
+    commentForm = () => {
+        return (
+            <Form>
+                <Form.TextArea 
+                    placeholder='Leave a comment!'
+                    content={this.state.comment} 
+                    onChange={this.handleCommentChange} 
+                />
+                <Form.Button onClick={this.saveComment}>Submit</Form.Button>
+            </Form>
+        )
+    }
+
+    showCommentForm = () => {
+        this.setState(prevState => {
+            return({
+                ...this.state,
+                showCommentForm: !prevState.showCommentForm
+            })
+        })
+    }
+
     currentUserAndCommentUser = (username, comment) => {
         if (username === this.props.user.username) {
             return(
@@ -83,7 +139,6 @@ class Comments extends React.Component {
     }
 
     userProfile = (userId) => {
-        // console.log('this will send to that users profile', userId)
         this.pushProfile(userId)
     }
 
@@ -97,10 +152,10 @@ class Comments extends React.Component {
                     </Feed.Label>
                     <Feed.Content>
                         <Feed.Summary>
-                            <Feed.User onClick={() => this.userProfile(user.id)}>{ user ? user.username : comment.user_id}</Feed.User>
+                            <Feed.User onClick={() => this.userProfile(user.id)}>{ user ? user.username : <Loader active inline /> }</Feed.User>
                             { user ? this.currentUserAndCommentUser(user.username, comment) : null }
                             <p><strong>{ comment.content }</strong></p>
-                            <Form.Input placeholder='Reply!'></ Form.Input>
+                            {/* <Form.Input placeholder='Reply!'></ Form.Input> */}
                         </Feed.Summary>
                     </Feed.Content>
                     <hr />
@@ -116,11 +171,18 @@ class Comments extends React.Component {
 
     render(){
         return(
-            <Feed>
+            <div>
+                <div>
+                    { this.state.showCommentForm ? this.commentForm() : <Button content='Leave a Comment?' onClick={ this.showCommentForm } />}
+                    <hr />
+                </div>
                 <h1>Commments: </h1>
                 <hr />
-                { this.setCommentCards() }
-            </Feed>
+                <Feed className='scrollContainer'>                  
+                    { this.setCommentCards() }
+                </Feed>
+            </div>
+            
         )
     }
 }

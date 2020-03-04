@@ -8,6 +8,7 @@ import Login from './Components/Account/Login'
 import Article from './Components/Card/Article'
 import CreateAccount from './Components/Account/CreateAccount'
 import UserProfile from './Components/ProfileData/OtherProfile'
+import EditProfile from './Components/ProfileData/ProfileEdit'
 
 // import PlaceHolding from './Components/PlaceHolding'
 
@@ -31,11 +32,12 @@ class App extends React.Component {
         <Route exact path ='/profile' component={Profile} />
         <Route exact path ='/login' component={Login} />
         <Route exact path ='/create-account' component={CreateAccount} />
+        <Route exact path ='/edit-profile' component={EditProfile} />
 
         <Route exact path ='/articles/:id' component={Article} />
         <Route exact path='/users/:id' component={UserProfile} />
 
-        <Route exact path='/loginz' component={Login} />
+        {/* <Route exact path='/loginz' component={Login} /> */}
 
         {/* <Route exact path ='/placeholding' component={PlaceHolding} /> */}
         

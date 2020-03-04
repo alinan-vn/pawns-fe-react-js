@@ -4,6 +4,9 @@ import { Grid, Image } from 'semantic-ui-react'
 import { loginUser } from '../../Actions/auth'
 import { tokenValidation } from '../../Actions/userValidation'
 import ProfileEditForm from './ProfileEdit'
+import ProfileComments from './ProfileComments'
+import { withRouter } from 'react-router-dom'
+
 
 class Profile extends React.Component {
     constructor(){
@@ -26,6 +29,7 @@ class Profile extends React.Component {
     }
 
     handleEditStatus = () => {
+        this.props.history.push('/edit-profile')
         this.setState({
             ...this.state,
             editting: true
@@ -121,6 +125,9 @@ class Profile extends React.Component {
                    { this.props.user && !this.state.editting ? profileInfo() : null }
                    { this.props.user ? null : <p>loading</p> }
                    { this.state.editting ? <ProfileEditForm /> : null}
+                   
+                   <ProfileComments />
+
                </Grid.Column>
            </Grid>
         )
@@ -139,4 +146,4 @@ const mapDispatchFromProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchFromProps)(Profile)
+export default withRouter(connect(mapStateToProps, mapDispatchFromProps)(Profile))

@@ -21,7 +21,7 @@ const siteStyle = {
 ReactDOM.render(
     <div style={siteStyle}>
         <Provider store={ store }>
-        <App />
+            <App />
         </Provider>
     </div>
     , 

@@ -16,9 +16,8 @@ class HomeFeed extends React.Component {
         
         return(
             <Grid>
-                <Grid.Column width={1} /> 
 
-                <Grid.Column width={3}>
+                <Grid.Column width={5}>
                     <SideBar />
                 </ Grid.Column>
 
@@ -28,7 +27,7 @@ class HomeFeed extends React.Component {
                     
                 </Grid.Column>
 
-                <Grid.Column width={4} />
+                {/* <Grid.Column width={4} /> */}
                 
             </Grid>
         )

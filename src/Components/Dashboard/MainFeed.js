@@ -1,10 +1,11 @@
 import React from 'react'
-import { Container, Header, Button } from 'semantic-ui-react'
+import { Container, Button, Icon } from 'semantic-ui-react'
 import { saveArticles, currentArticle } from '../../Actions/articles'
 import { loginUser } from '../../Actions/auth'
 import { tokenValidation } from '../../Actions/userValidation'
 import { connect } from 'react-redux'
 import '../../App.css'
+import PawnBck from '../../Images/pawn_bck.jpg'
 
 import { withRouter } from 'react-router-dom'
 
@@ -18,13 +19,36 @@ class MainFeed extends React.Component {
     articleCards = () => {
         return this.props.articles.map((article, ind) => {
             const newContent = article.content.split(' ').splice(0, 50).join(' ')
+            const colors = ['#ebd6b7', '#b3b3b3']
+            const colorsInv = [ '#b3b3b3', '#ebd6b7']
+            const num = ind % 2
+
+            const buttonStyle = {
+                backgroundColor: colorsInv[num],
+                marginBottom: '5px',
+                marginLeft: '5px'
+            }
+
             return (
-                <Container fluid key={ind}>
-                    <Header as='h3'>{ article.title }</Header>
-                    <p>
-                        { newContent }
-                    </p>
-                    <Button onClick={ () => this.handleCurrentArticle(article.id, ind) } content='See More!' />                    
+                <Container fluid key={ind} >
+                    <div style={{background: colors[num]}}>
+                        <br />
+                        <h3 className='mainFont titlePadding'>
+                            { article.title }
+                        </h3>
+                        <p className='contentPadding contentJustify'>
+                            { newContent }
+                        </p>
+                        <Button 
+                            compact={true}
+
+                            onClick={ () => this.handleCurrentArticle(article.id, ind) }
+                            style={buttonStyle}
+                        >
+                            <Icon name='chess' />
+                        </Button> 
+                    </div>
+                                       
                     <hr />
                 </Container>
             )
@@ -47,7 +71,7 @@ class MainFeed extends React.Component {
     render(){
 
         return(
-            <div className='scrollContainer mainFont' >
+            <div className='scrollContainer mainFont'>
                 { this.articleCards() }
             </div> 
         )

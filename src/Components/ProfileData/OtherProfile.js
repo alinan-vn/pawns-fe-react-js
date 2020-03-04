@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Grid, Image } from 'semantic-ui-react'
 import { loginUser } from '../../Actions/auth'
+import { currentProfile } from '../../Actions/user'
 import { tokenValidation } from '../../Actions/userValidation'
 import { withRouter } from 'react-router-dom'
 
@@ -24,13 +25,17 @@ class viewProfile extends React.Component {
         }    
     }
 
+    setCurrentProfile = () => {
+        fetch(`http://localhost:3000/users/${this.props.match.params.id}`)
+        .then(resp => resp.json())
+        .then(user => {
+            this.props.setProfile(user)
+        })
+    }
+
     componentDidMount(){
         tokenValidation(this.props)
-        console.log('compononet did mount', this.props.profile)
-        // debugger
-        // if (!this.props.profile){
-        //     this.props.history.push('/')
-        // }
+        this.setCurrentProfile()
     }
 
     render (){
@@ -92,7 +97,8 @@ class viewProfile extends React.Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        loginUser: user => dispatch(loginUser(user))
+        loginUser: user => dispatch(loginUser(user)),
+        setProfile: user => dispatch(currentProfile(user))
     }
 }
 

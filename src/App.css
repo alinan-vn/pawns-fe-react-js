@@ -1,5 +1,6 @@
 .scrollContainer {
-  overflow: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
   max-height: 700px;
 }
 
@@ -9,4 +10,18 @@
 
 .mainFont {
   font-family: Didot;
+}
+
+.titlePadding {
+  margin-top: 1px;
+  margin-left: 20px;
+}
+
+.contentPadding {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.contentJustify {
+  text-align: justify;
 }

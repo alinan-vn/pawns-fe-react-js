@@ -5,18 +5,15 @@ import { Grid, Form, Button } from 'semantic-ui-react'
 import { tokenValidation } from '../../Actions/userValidation'
 import { loginUser } from '../../Actions/auth'
 import Comments from './Comments'
+import '../../App.css'
 
 class ArticleCard extends React.Component {
     constructor(){
         super()
         this.state ={
-            article: null,
-            voteCount: 0,
-            showCommentForm: false,
-            comment: ''
+            voteCount: 0
         }
     }
-
 
     dateTranslator = () => {
         const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -34,7 +31,6 @@ class ArticleCard extends React.Component {
     }
 
     fetchVotes = () => {
-        console.log('que', this.props.match.params.id)
         fetch(`http://localhost:3000/get_votes_and_comments/${this.props.match.params.id}`)
         .then(resp => resp.json())
         .then(obj => {
@@ -49,103 +45,50 @@ class ArticleCard extends React.Component {
         })
     }
 
-    handleCommentChange = (event) => {
-        this.setState({
-            comment: event.target.value
-        })
-    }
-
-    saveComment = (e) => {
-        const commentData = {
-            content: this.state.comment,
-            article_id: this.props.article.id,
-            user_id: this.props.user.id
-        }
-
-        this.showCommentForm() // gets rid of comment form
-
-        const commentObj = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(commentData)
-        }
-
-        fetch('http://localhost:3000/comments', commentObj)
-        .then(resp => resp.json())
-        .then(json => {
-            this.fetchVotes()
-        })           
-    }
-
-    showCommentForm = () => {
-        this.setState(prevState => {
-            return({
-                ...this.state,
-                showCommentForm: !prevState.showCommentForm
-            })
-        })
-    }
-
-    commentForm = () => {
-        return (
-            <Form>
-                <Form.TextArea 
-                    placeholder='Leave a comment!'
-                    content={this.state.comment} 
-                    onChange={this.handleCommentChange} 
-                />
-                <Form.Button onClick={this.saveComment}>Submit</Form.Button>
-            </Form>
-        )
-    }
-
-    textStyle = {
-        textAlign: 'justify',
-        textJustify: 'inter-word'
-    }
-
     setCurrentArticle = () => {
-        fetch(`http://localhost:3000/comments/${this.props.match.params.id}`)
+        fetch(`http://localhost:3000/articles/${this.props.match.params.id}`)
         .then(resp => resp.json())
         .then(obj => {
+            console.log('article??', obj)
             this.props.currentArticle(obj)
         })
     }
+    
+    articleInfo = () => {
+        return(
+            <div>
+                <h1 style={{textAlign:'center'}}>{ this.props.article.title }</h1>
+                <p>Written by: { this.props.article.author }. Posted on: { this.dateTranslator() }</p>
+                <p className='contentJustify'>{ this.props.article.content }</p>
+                {/* <Grid>
+                    <Grid.Column width={2}>
+                        <Button content={ `${this.state.voteCount}` }  />
+                    </Grid.Column>
+                </Grid> */}
+            </div>
+        )
+
+    }
 
     componentDidMount(){
-        // console.log('match', this.props.match)
-        // this.setCurrentArticle()
+        this.setCurrentArticle()
         this.fetchVotes()
         tokenValidation(this.props)
     }
+
+    
 
     render(){
         return(
             <Grid>
                 <Grid.Column width={4} />
                     { console.log('checking article props', this.props.match.params.id) }
+                    { console.log('state', this.state)}
                 <Grid.Column width={9}>
-                    <p>{this.props.match.params.id}</p>
-                    <div>
-                        <h1 style={{textAlign:'center'}}>{ this.props.article.title }</h1>
-                        <p>Written by: { this.props.article.author }. Posted on: { this.dateTranslator() }</p>
-                        <p style={this.textStyle}>{ this.props.article.content }</p>
-                        <Grid>
-                            <Grid.Column width={2}>
-                                <Button content={ `${this.state.voteCount}` }  />
-                            </Grid.Column>
+                    { this.props.article ? this.articleInfo() : null }
+                    <br />
 
-                            <Grid.Column width={14}>
-                                { this.state.showCommentForm ? this.commentForm() : <Button content='Leave a Comment?' onClick={ this.showCommentForm } />}                              
-                            </Grid.Column>
-                        </Grid>
-                    </div>
-                    <hr />
-
-                        <Comments />
+                    <Comments />
 
                 </Grid.Column>
 
