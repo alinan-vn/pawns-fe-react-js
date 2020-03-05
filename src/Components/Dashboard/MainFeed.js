@@ -64,8 +64,10 @@ class MainFeed extends React.Component {
 
     componentDidMount(){
         this.fetchArticles()
-
+        // debugger
         tokenValidation(this.props)
+        
+
     }
 
     render(){

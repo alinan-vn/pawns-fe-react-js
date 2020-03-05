@@ -63,9 +63,6 @@ class CreateAccount extends React.Component {
     }
 
     createUser = () => {
-        this.checkCorrectPassword() ? console.log('correct password!') : console.log('incorrect!!')
-        console.log('correct info?', this.state)
-
         if (this.checkCorrectPassword()){
             const userData = {
                 username: this.state.username,
@@ -88,8 +85,8 @@ class CreateAccount extends React.Component {
             fetch('http://localhost:3000/users', userObj)
             .then(resp => resp.json())
             .then(user => {
-                console.log('did this work?', user)
-                this.authenticateUser()
+                localStorage.setItem('token', user.token)
+                this.props.history.push('/')
             })
         }
     }
