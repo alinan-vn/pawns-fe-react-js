@@ -80,7 +80,7 @@ class ArticleCard extends React.Component {
 
     render(){
         return(
-            <Grid>
+            <Grid style={{opacity: '.9'}}>
                 <Grid.Column width={4} />
                     
                 <Grid.Column width={9} className='mainFont' style={{background: '#4592af'}}>

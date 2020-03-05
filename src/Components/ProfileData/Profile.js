@@ -36,7 +36,7 @@ class Profile extends React.Component {
         if (this.state.profile_pic === ''){
             this.setState({
                 ...this.state,
-                profile_pic: 'https://lh3.googleusercontent.com/proxy/ozTvIKSwIE8N-toABYKivA7BqAHdrmGOhHS3gnZcn81ehU8N8KwvneT5WhD_HPPiWB3tAd9HOgSoPoSOkQ'
+                profile_pic: 'https://react.semantic-ui.com/images/avatar/small/elliot.jpg'
             })
         }
         if (this.state.profile_background === ''){
@@ -47,7 +47,9 @@ class Profile extends React.Component {
         }
     }
 
-
+    profileBackGround = () => {
+        // returns background and profile pic is props.user is valid
+    }
 
     componentDidMount(){
         tokenValidation(this.props)
@@ -110,7 +112,7 @@ class Profile extends React.Component {
         }
         
         return(
-           <Grid className='mainFont' >
+           <Grid className='mainFont' style={{opacity: '.8'}} >
                 { this.checkProfilePicAndBack() }
                 {/* { console.log('checking state', this.state.profile_pic)} */}
                <Grid.Column width={3} />

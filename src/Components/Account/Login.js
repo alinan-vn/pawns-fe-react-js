@@ -56,7 +56,8 @@ class Login extends React.Component{
             background: '#44d9e6', 
             borderRadius: '10px', 
             marginTop: '100px',
-            boxShadow: '5px 10px #3dc4d0'
+            boxShadow: '5px 10px #3dc4d0',
+            opacity: '0.8'
         }
         return(
             <Grid className=''>

@@ -35,6 +35,10 @@
   text-align: justify;
 }
 
+.cursorPoint {
+  cursor: pointer;
+}
+
 body {
   background-color: #e3c4a8;
 }

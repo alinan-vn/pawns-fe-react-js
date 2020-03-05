@@ -1,11 +1,12 @@
 import React from 'react';
-import { Menu, Image } from 'semantic-ui-react'
+import { Menu, Image, Dropdown } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logoutUser } from '../Actions/auth';
 import RookSketch from '../Images/rook_sketch.png' 
 import PawnSketchOne from '../Images/pawn_sketch_1.png'
 import PawnSketchTwo from '../Images/pawn_sketch_2.jpeg'
+import PawnsLogo from '../Images/pawnsOutline.png'
 
 // import '../App.css'
 
@@ -49,13 +50,14 @@ class MenuBar extends React.Component {
         inverted={true}
         size={"large"}
         fixed={'top'}
+        style={{opacity: '0.95'}}
       >
         <Menu.Item 
           name='/'
           onClick={this.handleRedirect}
         >
           <Image 
-            src={PawnSketchTwo} 
+            src={PawnsLogo} 
             // fluid={true}
             size='mini'
             circular={true}
@@ -75,7 +77,7 @@ class MenuBar extends React.Component {
           pawns
         </Menu.Item> */}
 
-        <Menu.Menu position='right'>
+        <Menu.Menu position='right'>  
           <Menu.Item
             style={menuItem}
             name='/profile'

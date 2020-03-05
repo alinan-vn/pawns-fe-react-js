@@ -61,11 +61,20 @@ class ProfileEditForm extends React.Component {
     }
     
     render(){
+
+        const editProfileContainer = {
+            background: '#fbffa3', 
+            borderRadius: '10px', 
+            marginTop: '30px',
+            boxShadow: '5px 10px #3dc4d0',
+            opacity: '0.8'
+        }
+
         return(
-            <Grid>
+            <Grid >
                 <Grid.Column width={3} />
-                <Grid.Column width={10}>
-                    <Form>
+                <Grid.Column width={10} style={editProfileContainer}>
+                    <Form >
                         <Form.Field>
                             <label>Elo</label>
                             <input 

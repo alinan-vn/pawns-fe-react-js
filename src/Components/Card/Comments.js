@@ -176,7 +176,12 @@ class Comments extends React.Component {
                     </Feed.Label>
                     <Feed.Content>
                         <Feed.Summary>
-                            <Feed.User onClick={() => this.userProfile(user.id)}>{ user ? user.username : <Loader active inline /> }</Feed.User>
+                            <Feed.User 
+                                // onClick={() => this.userProfile(user.id)}
+                            >{ user ? user.username 
+                                : 
+                                <Loader active inline /> }
+                            </Feed.User>
                             { user ? this.currentUserAndCommentUser(user.username, comment) : null }
                             <p><strong>{ comment.content }</strong></p>
                             {/* <Form.Input placeholder='Reply!'></ Form.Input> */}

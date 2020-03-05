@@ -41,6 +41,7 @@ class ProfileComments extends React.Component {
                     <Feed.Content  >
                         <Feed.Summary 
                             onClick={() => this.handleCurrentArticle(comment.article_id)} 
+                            className='cursorPoint'
                         >
                             <p className='contentIndent'>{ comment.content }</p>
                             

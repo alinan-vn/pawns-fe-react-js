@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import rootReducer from './Reducers/rootReducer'
+import PawnsLogo from './Images/pawnsOutline.png'
 
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
@@ -15,7 +16,10 @@ const store = createStore(
 )
 
 const siteStyle = {
-    backgroundColor: '#e3c4a8'
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    backgroundImage: `url(${PawnsLogo})`
 }
 
 ReactDOM.render(

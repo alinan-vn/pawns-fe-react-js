@@ -64,16 +64,13 @@ class MainFeed extends React.Component {
 
     componentDidMount(){
         this.fetchArticles()
-        // debugger
-        tokenValidation(this.props)
-        
-
+        // tokenValidation(this.props)
     }
 
     render(){
 
         return(
-            <div className='scrollContainer mainFont'>
+            <div className='scrollContainer mainFont' style={{opacity: '.9'}}>
                 { this.articleCards() }
             </div> 
         )

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Header, List, Grid, Loader } from 'semantic-ui-react'
-import '../../App.css'
 import { withRouter } from 'react-router-dom'
 import PawnSketch from '../../Images/pawn_sketch_2.jpeg'
+import '../../App.css'
 
 class SideBarHomeFeed extends React.Component {
     constructor(){
@@ -69,7 +69,7 @@ class SideBarHomeFeed extends React.Component {
                             <List.Content>
                             <a 
                                 onClick={() => this.directToNYTArticle(article.web_url)} 
-                                className='mainFont contentJustify'
+                                className='mainFont contentJustify cursorPoint'
                             >
                                 { article.headline.main }</a>
                             <List.Description>{ this.contentReducer(article.abstract) }</List.Description>
@@ -90,7 +90,7 @@ class SideBarHomeFeed extends React.Component {
 
     render(){
         return(
-            <div>
+            <div style={{opacity: '.9'}}>
                 <Header as='h3' style={{textAlign: 'center'}}>NYT Articles!</Header>
                 <List  
                     className='scrollContainer mainFont'
