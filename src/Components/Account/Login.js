@@ -3,6 +3,7 @@ import { Grid, Form, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { loginUser } from '../../Actions/auth'
 import { withRouter } from 'react-router-dom'
+import '../../App.css'
 
 class Login extends React.Component{
     constructor(props){
@@ -52,7 +53,7 @@ class Login extends React.Component{
 
     render(){
         return(
-            <Grid>
+            <Grid className=''>
                 <Grid.Column width={4} />
 
                 <Grid.Column width={8}>
@@ -71,6 +72,7 @@ class Login extends React.Component{
                         <Button type='submit' onClick={this.handleSubmit}>Sign In!</Button>
                         <a href='/create-account'>Create an Account!</a>
                     </Form>
+                    
                 </Grid.Column>
 
                 <Grid.Column width={4} />

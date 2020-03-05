@@ -23,7 +23,7 @@ class App extends React.Component {
 
   render(){
     return(
-      <Router>
+      <Router >
         <br /><br />
         {/* {console.log('APP', this.props.currentUser)} */}
         <MenuBar />

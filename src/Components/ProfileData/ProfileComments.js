@@ -33,15 +33,20 @@ class ProfileComments extends React.Component {
     }
 
     commentFeed = () => {
-        return this.state.comments.map(comment => {
+        return this.state.comments.map((comment, ind) => {
+            const colors = ['#ebd6b7', '#b3b3b3']
+            const num = ind % 2
             return(
-                <Feed.Event key={comment.id}>
-                    <Feed.Content>
-                        <Feed.Summary onClick={() => this.handleCurrentArticle(comment.article_id)}>
-                            { comment.content }
-                            <hr />
+                <Feed.Event icon='chess pawn' key={comment.id} style={{background: colors[num]}}>
+                    <Feed.Content  >
+                        <Feed.Summary 
+                            onClick={() => this.handleCurrentArticle(comment.article_id)} 
+                        >
+                            <p className='contentIndent'>{ comment.content }</p>
+                            
                         </Feed.Summary>
                     </Feed.Content>
+                    <hr />
                 </Feed.Event>
             )    
         })
@@ -54,9 +59,9 @@ class ProfileComments extends React.Component {
 
     render(){
         return(
-            <div>
-                <h1>Comments!</h1>
-                <hr />
+            <div style={{background: '#b3b3b3'}}>
+                <h1 className='titlePadding mainFont' style={{textAlign: 'center'}}>Comments!</h1>
+                <br />
                 <Feed className='scrollContainer'>
                     { this.commentFeed() }
                 </Feed>

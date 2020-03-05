@@ -57,7 +57,7 @@ class ArticleCard extends React.Component {
     articleInfo = () => {
         return(
             <div>
-                <h1 style={{textAlign:'center'}}>{ this.props.article.title }</h1>
+                <h1 className='mainFont' style={{textAlign:'center'}}>{ this.props.article.title }</h1>
                 <p>Written by: { this.props.article.author }. Posted on: { this.dateTranslator() }</p>
                 <p className='contentJustify'>{ this.props.article.content }</p>
                 {/* <Grid>
@@ -82,9 +82,8 @@ class ArticleCard extends React.Component {
         return(
             <Grid>
                 <Grid.Column width={4} />
-                    { console.log('checking article props', this.props.match.params.id) }
-                    { console.log('state', this.state)}
-                <Grid.Column width={9}>
+                    
+                <Grid.Column width={9} className='mainFont' style={{background: '#4592af'}}>
                     { this.props.article ? this.articleInfo() : null }
                     <br />
 

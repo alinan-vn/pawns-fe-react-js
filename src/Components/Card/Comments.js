@@ -115,10 +115,27 @@ class Comments extends React.Component {
                     placeholder='Leave a comment!'
                     content={this.state.comment} 
                     onChange={this.handleCommentChange} 
+                    style={this.commentFormStyle}
+                    className='mainFont'
                 />
-                <Form.Button onClick={this.saveComment}>Submit</Form.Button>
+                <Form.Button 
+                    onClick={this.saveComment}
+                    compact={true}
+                    style={this.buttonStyle}
+                    className='mainFont'
+                >
+                    Submit
+                </Form.Button>
             </Form>
         )
+    }
+
+    commentFormStyle = {
+        backgroundColor: '#f5eded'
+    }
+
+    buttonStyle = {
+        backgroundColor: '#e3c4a8'
     }
 
     showCommentForm = () => {
@@ -133,7 +150,14 @@ class Comments extends React.Component {
     currentUserAndCommentUser = (username, comment) => {
         if (username === this.props.user.username) {
             return(
-                <button onClick={() => this.deleteComment(comment)}>Delete Comment</button>
+                <Button 
+                    onClick={() => this.deleteComment(comment)}
+                    compact={true}
+                    basic={true}
+                    className='mainFont'
+                >
+                    Delete Comment
+                </Button>
             )
         }
     }
@@ -148,7 +172,7 @@ class Comments extends React.Component {
             return (
                 <Feed.Event key={ comment.id }>
                     <Feed.Label>
-                        <img src={ user && !(user.profile_pic === '' ) ? user.profile_pic   : 'https://react.semantic-ui.com/images/avatar/small/elliot.jpg' } />
+                        <img className='commentIconPadding' src={ user && !(user.profile_pic === '' ) ? user.profile_pic   : 'https://react.semantic-ui.com/images/avatar/small/elliot.jpg' } />
                     </Feed.Label>
                     <Feed.Content>
                         <Feed.Summary>
@@ -168,19 +192,35 @@ class Comments extends React.Component {
         this.fetchComments()
     }
 
+    commentsStyle = {
+        backgroundColor: '#ecfffb'
+    }
+
 
     render(){
         return(
             <div>
                 <div>
-                    { this.state.showCommentForm ? this.commentForm() : <Button content='Leave a Comment?' onClick={ this.showCommentForm } />}
-                    <hr />
+                    { this.state.showCommentForm ? 
+                    this.commentForm() : 
+                    <Button 
+                        content='Leave a Comment?' 
+                        onClick={this.showCommentForm} 
+                        compact={true}
+                        style={this.buttonStyle}
+                        className='mainFont'
+                    />}
+                    
                 </div>
-                <h1>Commments: </h1>
-                <hr />
-                <Feed className='scrollContainer'>                  
-                    { this.setCommentCards() }
-                </Feed>
+                <div style={this.commentsStyle}>
+                    <hr />
+                    <h2 className='mainFont' style={{textAlign:'center'}}>Commments</h2>
+                    <br />
+                    <Feed className='scrollContainer mainFont'>                  
+                        { this.setCommentCards() }
+                    </Feed>
+                </div>
+                
             </div>
             
         )

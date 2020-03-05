@@ -1,11 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Grid, Image } from 'semantic-ui-react'
+import { Grid, Image, Button } from 'semantic-ui-react'
 import { loginUser } from '../../Actions/auth'
 import { tokenValidation } from '../../Actions/userValidation'
 import ProfileEditForm from './ProfileEdit'
 import ProfileComments from './ProfileComments'
 import { withRouter } from 'react-router-dom'
+import '../../App.css'
 
 
 class Profile extends React.Component {
@@ -13,8 +14,7 @@ class Profile extends React.Component {
         super()
         this.state = {
             profile_background: '',
-            profile_pic: '',
-            editting: false
+            profile_pic: ''
         }
     }
 
@@ -30,17 +30,6 @@ class Profile extends React.Component {
 
     handleEditStatus = () => {
         this.props.history.push('/edit-profile')
-        this.setState({
-            ...this.state,
-            editting: true
-        })
-    }
-
-    setEditFalse = () => {
-        this.setState({
-            ...this.state,
-            editting: false
-        })
     }
 
     checkProfilePicAndBack = () => {
@@ -104,8 +93,14 @@ class Profile extends React.Component {
                     { profileBackgrounDiv() }
                     <h1 
                         style={{fontSize: '50px'}}
+                        className='mainFont'
                     >{ username }</h1>
-                    <button onClick={this.handleEditStatus}>Edit profile?</button>
+                    <Button 
+                        onClick={this.handleEditStatus}
+                        compact={true}
+                    >
+                        Edit profile?
+                    </Button>
                     <br />
                     <p>ELO { this.props.user.elo }</p>
                     <p style={{fontSize: '20px'}} >About { username }! </p>
@@ -114,18 +109,17 @@ class Profile extends React.Component {
             )
         }
         
-        console.log('user props?', this.props.user)
-        console.log('edditing??', this.state.editting)
         return(
-           <Grid>
+           <Grid className='mainFont' >
                 { this.checkProfilePicAndBack() }
-                { console.log('checking state', this.state.profile_pic)}
+                {/* { console.log('checking state', this.state.profile_pic)} */}
                <Grid.Column width={3} />
-               <Grid.Column width={10}>
+               <Grid.Column width={10} style={{background: '#ebd6b7'}}>
                    { this.props.user && !this.state.editting ? profileInfo() : null }
                    { this.props.user ? null : <p>loading</p> }
                    { this.state.editting ? <ProfileEditForm /> : null}
                    
+                   <hr />
                    <ProfileComments />
 
                </Grid.Column>

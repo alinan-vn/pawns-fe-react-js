@@ -17,6 +17,15 @@
   margin-left: 20px;
 }
 
+.commentIconPadding {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.contentIndent {
+  text-indent: 10px;
+}
+
 .contentPadding {
   margin-left: 20px;
   margin-right: 20px;
@@ -24,4 +33,8 @@
 
 .contentJustify {
   text-align: justify;
+}
+
+body {
+  background-color: #e3c4a8;
 }

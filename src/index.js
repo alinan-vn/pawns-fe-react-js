@@ -15,7 +15,7 @@ const store = createStore(
 )
 
 const siteStyle = {
-    background: '#FFEBCD'
+    backgroundColor: '#e3c4a8'
 }
 
 ReactDOM.render(
