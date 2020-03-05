@@ -52,15 +52,21 @@ class Login extends React.Component{
     }
 
     render(){
+        const loginContainer = {
+            background: '#44d9e6', 
+            borderRadius: '10px', 
+            marginTop: '100px',
+            boxShadow: '5px 10px #3dc4d0'
+        }
         return(
             <Grid className=''>
                 <Grid.Column width={4} />
 
-                <Grid.Column width={8}>
-                    <Form>
+                <Grid.Column width={8} style={loginContainer}>
+                    <Form className='mainFont'>
                         <Form.Field>
                             {/* <Input label='username' placeholder='username' /> */}
-                            <label style={{color: 'green'}}>Username</label>
+                            <label>Username</label>
                             <input 
                                 name='username' 
                                 placeholder='username' onChange={this.handleInputChange} />
@@ -69,7 +75,16 @@ class Login extends React.Component{
                             <label>Password</label>
                             <input name='password_digest' placeholder='password' onChange={this.handleInputChange} type='password' />
                         </Form.Field>
-                        <Button type='submit' onClick={this.handleSubmit}>Sign In!</Button>
+                        <Button 
+                            type='submit' 
+                            onClick={this.handleSubmit}
+                            className='mainFont'
+                            style={{
+                                backgroundColor: '#ecfffb'
+                            }}
+                        >
+                            Sign In!
+                        </Button>
                         <a href='/create-account'>Create an Account!</a>
                     </Form>
                     

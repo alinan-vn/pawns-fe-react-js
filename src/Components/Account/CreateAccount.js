@@ -3,6 +3,7 @@ import { Form, Button, Grid } from 'semantic-ui-react'
 import { loginUser } from '../../Actions/auth'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import '../../App.css'
 
 class CreateAccount extends React.Component {
     constructor(){
@@ -95,12 +96,19 @@ class CreateAccount extends React.Component {
 
 
     render(){
+        const createAccountContainer = {
+            background: '#44d9e6', 
+            borderRadius: '10px', 
+            marginTop: '30px',
+            boxShadow: '5px 10px #3dc4d0'
+        }
+
         return(
             <Grid>
                 <Grid.Column width={3} />
 
-                <Grid.Column width={10}>
-                    <Form>
+                <Grid.Column width={10} style={createAccountContainer}>
+                    <Form className='mainFont'>
                         <Form.Field>
                             <label>Username</label>
                             <input 
@@ -166,7 +174,16 @@ class CreateAccount extends React.Component {
                                 onChange={this.handleInputChange}
                             />
                         </Form.Field>
-                        <Button type='submit' onClick={this.createUser}>Save!</Button>
+                        <Button 
+                            type='submit' 
+                            onClick={this.createUser}
+                            className='mainFont'
+                            style={{
+                                backgroundColor: '#ecfffb'
+                            }}
+                        >
+                            Save!
+                        </Button>
                     </Form>
                 </Grid.Column>
 
