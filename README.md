@@ -1,4 +1,18 @@
-Pawns is a News Feed web application intended to connect Chess related news. The application hosts personal articles as well as offers other resources (currently just NYTimes chess related articles). User can leave their own chess related bio and leave their comments on the Pawns website.
+**Note** this repo contains the front end code for Pawns, for installation and reference to the back end code is located in this README.
+#
+# Pawns #
+is a News Feed web application intended to connect Chess related news. The application hosts personal articles as well as offers other resources (currently just NYTimes chess related articles). User can leave their own chess related bio and leave their comments on the Pawns website.
+#
+Front end requirements:
+
+* React
+* Redux
+* React Router
+* Semantic-Ui
+* Semantic-Ui-React
+#
+Back end requirements and instructions:
+* https://github.com/alinan-vn/pawns-be-ruby-on-rails
 
 To view the application fork/clone this repo and follow the commands listed below.
 
