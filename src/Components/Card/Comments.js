@@ -177,7 +177,7 @@ class Comments extends React.Component {
                     <Feed.Content>
                         <Feed.Summary>
                             <Feed.User 
-                                // onClick={() => this.userProfile(user.id)}
+                                onClick={() => this.userProfile(user.id)}
                             >{ user ? user.username 
                                 : 
                                 <Loader active inline /> }

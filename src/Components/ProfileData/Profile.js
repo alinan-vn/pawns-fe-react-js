@@ -114,7 +114,7 @@ class Profile extends React.Component {
         return(
            <Grid className='mainFont' style={{opacity: '.8'}} >
                 { this.checkProfilePicAndBack() }
-                {/* { console.log('checking state', this.state.profile_pic)} */}
+    
                <Grid.Column width={3} />
                <Grid.Column width={10} style={{background: '#ebd6b7'}}>
                    { this.props.user && !this.state.editting ? profileInfo() : null }
