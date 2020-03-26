@@ -1,6 +1,7 @@
 const tokenValidation = (props) => {
     const token = localStorage.getItem('token')
     if (!token){
+        alert('Please log in or create an account to view further content')
         props.history.push('/login')
     } else {
         const reqObj = {
