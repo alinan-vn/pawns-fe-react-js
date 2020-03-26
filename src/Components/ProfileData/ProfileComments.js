@@ -13,19 +13,36 @@ class ProfileComments extends React.Component {
         }
     }
 
-    setComments = () => {
-        // fetch(`http://localhost:3000/get_comments/${this.props.user.id}`)
-        if (this.props.user){
-            fetch(`http://localhost:3000/get_comments/${this.props.user.id}`)
-            .then(resp => resp.json())
-            .then(comments => {
-                this.setState({
-                    ...this.state,
-                    comments: comments
-                })
+    setComments = (userId) => {
+        fetch(`http://localhost:3000/get_comments/${userId}`)
+        .then(resp => resp.json())
+        .then(comments => {
+            this.setState({
+                ...this.state,
+                comments: comments
+            })
+        })
+    }
+
+    getUser = () => {
+        let token = localStorage.getItem('token')
+        if(!token){
+            this.props.history.push('/login')
+        } else {
+            const tokenObj = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+            fetch('http://localhost:3000/current_user', tokenObj)
+            .then(r => r.json())
+            .then(user => {
+                console.log('FROM PROFILE COMMENTS', user)
+                this.setComments(user.id)
             })
         }
-        
     }
 
     handleCurrentArticle = (articleId) => {
@@ -54,8 +71,7 @@ class ProfileComments extends React.Component {
     }
 
     componentWillMount (){
-        this.setComments()
-        // console.log('inside prof', this.props.user)
+        this.getUser()
     }
 
     render(){
@@ -63,7 +79,7 @@ class ProfileComments extends React.Component {
             <div style={{background: '#b3b3b3'}}>
                 <h1 className='titlePadding mainFont' style={{textAlign: 'center'}}>Comments!</h1>
                 <br />
-                <Feed className='scrollContainer'>
+                <Feed className='scrollContainer' style={{maxHeight: '400px'}}>
                     { this.commentFeed() }
                 </Feed>
             </div>

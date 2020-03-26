@@ -129,7 +129,10 @@ class viewProfile extends React.Component {
                         <hr />
                         <h2 style={{textAlign: 'center'}}>Comments!</h2>
                         <hr />
-                        { this.profileComments() }
+                        <Feed className='scrollContainer' style={{maxHeight: '400px'}}>
+                            { this.profileComments() }
+                        </Feed>
+                        
                 </Grid.Column>
             )
         }

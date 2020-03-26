@@ -51,8 +51,33 @@ class Profile extends React.Component {
         // returns background and profile pic is props.user is valid
     }
 
+    getUser = () => {
+        let token = localStorage.getItem('token')
+        if(!token){
+            this.props.history.push('/login')
+        } else {
+            const tokenObj = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+            fetch('http://localhost:3000/current_user', tokenObj)
+            .then(r => r.json())
+            .then(user => {
+                this.setState({
+                    ...this.state,
+                    profile_background: user.profile_background,
+                    profile_pic: user.profile_pic
+                })
+            })
+        }
+    }
+
     componentDidMount(){
         tokenValidation(this.props)
+        this.getUser()
         // console.log('did mount', this.props.user)
         this.setProfilePicAndBackground()
         // this.setEditFalse()
@@ -90,6 +115,7 @@ class Profile extends React.Component {
 
         const profileInfo = () => {
             const username = this.props.user.username
+
             return(
                 <div>
                     { profileBackgrounDiv() }
@@ -106,7 +132,10 @@ class Profile extends React.Component {
                     <br />
                     <p>ELO { this.props.user.elo }</p>
                     <p style={{fontSize: '20px'}} >About { username }! </p>
-                    <p>{ this.props.user.bio }</p>
+
+                    <div className='divBackgroundCardWOShadow' style={{background: '#b3b3b3'}}>
+                        <p>{ this.props.user.bio }</p>
+                    </div>
                 </div>
             )
         }
