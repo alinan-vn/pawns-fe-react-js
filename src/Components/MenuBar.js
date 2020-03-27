@@ -26,6 +26,29 @@ class MenuBar extends React.Component {
     this.props.history.push(name)
   }
 
+  writeArticle = () => {
+    const menuItem = {
+      background: '#808080',
+      width: '100px',
+      textAlign: 'center',
+      padding: '12px'
+    }
+
+    console.log('FULL TRANSPARENCY', this.props)
+
+    if(this.props.user){
+      return(
+        <Menu.Item
+          style={menuItem}
+          name='/new-article'
+          onClick={this.handleRedirect}
+        >
+          Add an Article!
+        </Menu.Item>
+      ) 
+    }
+  }
+
   render(){
     const menuBar = {
       height: '100%',
@@ -63,21 +86,11 @@ class MenuBar extends React.Component {
             circular={true}
           />
         </Menu.Item>
-        {/* <Menu.Item
-          style={menuItem}
-          name='/'
-          onClick={this.handleRedirect}
-        >
-          <Image 
-            src={PawnSketchTwo} 
-            // fluid={true}
-            size='mini'
-            circular={true}
-          />
-          pawns
-        </Menu.Item> */}
+        
+        <Menu.Menu position='right'>
+          
+          { this.writeArticle() }
 
-        <Menu.Menu position='right'>  
           <Menu.Item
             style={menuItem}
             name='/profile'

@@ -61,14 +61,12 @@ class MainFeed extends React.Component {
         .then(articles => this.props.saveArticles(articles))
     }
 
-
     componentDidMount(){
         this.fetchArticles()
-        // tokenValidation(this.props)
+        tokenValidation(this.props)
     }
 
     render(){
-
         return(
             <div className='scrollContainer mainFont' style={{opacity: '.9'}}>
                 { this.articleCards() }

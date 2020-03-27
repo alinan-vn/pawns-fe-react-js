@@ -9,6 +9,7 @@ import Article from './Components/Card/Article'
 import CreateAccount from './Components/Account/CreateAccount'
 import UserProfile from './Components/ProfileData/OtherProfile'
 import EditProfile from './Components/ProfileData/ProfileEdit'
+import writeArticle from './Components/Writer/writeArticle'
 
 // import PlaceHolding from './Components/PlaceHolding'
 
@@ -33,6 +34,7 @@ class App extends React.Component {
         <Route exact path ='/login' component={Login} />
         <Route exact path ='/create-account' component={CreateAccount} />
         <Route exact path ='/edit-profile' component={EditProfile} />
+        <Route exact path ='/new-article' component={writeArticle} />
 
         <Route exact path ='/articles/:id' component={Article} />
         <Route exact path='/users/:id' component={UserProfile} />
