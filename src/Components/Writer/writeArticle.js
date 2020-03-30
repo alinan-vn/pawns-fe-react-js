@@ -11,7 +11,8 @@ class writeArticle extends React.Component {
         this.state = {
             title: '',
             date: '',
-            content: ''
+            content: '',
+            author: ''
         }
     }
 
@@ -20,6 +21,32 @@ class writeArticle extends React.Component {
             ...this.state,
             [e.target.title]: e.target.value
         })
+    }
+
+    postArticle = () => {
+        this.setState({
+            ...this.state,
+            author: this.props.user.username
+        })
+
+        console.log(this.state)
+
+        const articleObj = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(this.state)
+        }
+
+        fetch(`http://localhost:3000/post_article`, articleObj)
+        .then(r => r.json())
+        .then(article => {
+            this.props.history.push(`/articles/${article.id}`)
+        })
+
+
     }
 
     componentDidMount(){
@@ -61,7 +88,7 @@ class writeArticle extends React.Component {
                             />
                         </Form.Field>
                         
-                        <Form.Button>Submit</Form.Button>
+                        <Form.Button onClick={this.postArticle}>Submit</Form.Button>
                     </Form>
                 </Grid.Column>
             </Grid>
@@ -75,4 +102,10 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(writeArticle)
+const mapStateToProps = state => {
+    return {
+        user: state.authReducer.user
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(writeArticle)

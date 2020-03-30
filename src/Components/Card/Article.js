@@ -19,7 +19,7 @@ class ArticleCard extends React.Component {
         const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         let dateArray = this.props.article.date.split('-')
         let month = months[parseInt(dateArray[0])]
-        let year = 2000 + parseInt(dateArray[2])
+        let year = parseInt(dateArray[2])
         let date = `Posted on ${month} ${dateArray[1]}, ${year}`
         return date
     }

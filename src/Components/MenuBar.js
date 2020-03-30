@@ -2,10 +2,9 @@ import React from 'react';
 import { Menu, Image, Dropdown } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { logoutUser } from '../Actions/auth';
+import { logoutUser, loginUser } from '../Actions/auth';
 import RookSketch from '../Images/rook_sketch.png' 
-import PawnSketchOne from '../Images/pawn_sketch_1.png'
-import PawnSketchTwo from '../Images/pawn_sketch_2.jpeg'
+import { tokenValidation } from '../Actions/userValidation'
 import PawnsLogo from '../Images/pawnsOutline.png'
 
 // import '../App.css'
@@ -36,7 +35,7 @@ class MenuBar extends React.Component {
 
     console.log('FULL TRANSPARENCY', this.props)
 
-    if(this.props.user){
+    if(this.props.user && this.props.user.writer){
       return(
         <Menu.Item
           style={menuItem}
@@ -47,6 +46,10 @@ class MenuBar extends React.Component {
         </Menu.Item>
       ) 
     }
+  }
+
+  componentDidMount(){
+    tokenValidation(this.props)
   }
 
   render(){
@@ -119,7 +122,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    logoutUser: () => dispatch(logoutUser())
+    logoutUser: () => dispatch(logoutUser()),
+    loginUser: user => dispatch(loginUser(user))
   }
 }
 
