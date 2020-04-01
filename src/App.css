@@ -54,6 +54,11 @@
   opacity: 0.8;
 }
 
+.buttonStyle {
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+
 body {
   background-color: #e3c4a8;
 }

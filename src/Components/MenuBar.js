@@ -33,8 +33,6 @@ class MenuBar extends React.Component {
       padding: '12px'
     }
 
-    console.log('FULL TRANSPARENCY', this.props)
-
     if(this.props.user && this.props.user.writer){
       return(
         <Menu.Item

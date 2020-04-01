@@ -23,12 +23,6 @@ class MainFeed extends React.Component {
             const colorsInv = [ '#b3b3b3', '#ebd6b7']
             const num = ind % 2
 
-            const buttonStyle = {
-                backgroundColor: colorsInv[num],
-                marginBottom: '5px',
-                marginLeft: '5px'
-            }
-
             return (
                 <Container fluid key={ind} >
                     <div style={{background: colors[num]}}>
@@ -41,18 +35,52 @@ class MainFeed extends React.Component {
                         </p>
                         <Button 
                             compact={true}
-
                             onClick={ () => this.handleCurrentArticle(article.id, ind) }
-                            style={buttonStyle}
+                            // className='buttonStyle'
+                            style={{backgroundColor: colorsInv[num], marginLeft: '5px', marginBottom: '5px'}}
                         >
                             <Icon name='chess' />
                         </Button> 
-                    </div>
-                                       
+                        { this.editButton(colorsInv[num], article.author, article.id) }
+                        { this.deleteButton(colorsInv[num], article.author) }
+                    </div>                  
                     <hr />
                 </Container>
             )
         })
+    }
+
+    editButton = (color, author, articleId) => {
+        if(this.props.user.username === author){
+            return(
+                <Button
+                    compact={true}
+                    // className='buttonStyle'
+                    onClick={() => this.handleEdit(articleId)}
+                    style={{backgroundColor: color}}
+                >
+                    Edit
+                </Button>
+            )
+        }
+    }
+
+    handleEdit = (articleId) => {
+        this.props.history.push(`/edit-article/${articleId}`)
+    }
+
+    deleteButton = (color, author) => {
+        if(this.props.user.username === author){
+            return(
+                <Button
+                    compact={true}
+                    // className='buttonStyle'
+                    style={{backgroundColor: color}}
+                >
+                    Delete
+                </Button>
+            )
+        }
     }
 
     fetchArticles = () => {
@@ -77,7 +105,8 @@ class MainFeed extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        articles: state.articleReducer.articles
+        articles: state.articleReducer.articles,
+        user: state.authReducer.user
     }
 }
 
