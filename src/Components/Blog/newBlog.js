@@ -30,7 +30,12 @@ class newBlog extends React.Component {
             author: this.props.user.username
         })
 
-        console.log('blog', this.state)
+        const blogData = {
+            ...this.state,
+            author: this.props.user.username
+        }
+
+        console.log('blog', blogData)
 
         const blogObj = {
             method: 'POST',
@@ -38,13 +43,13 @@ class newBlog extends React.Component {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-            body: JSON.stringify(this.state)
+            body: JSON.stringify(blogData)
         }
 
         fetch(`http://localhost:3000/post_blog`, blogObj)
         .then(r => r.json())
         .then(blog => {
-            // this.props.history.push(`/blogs/${blog.id}`)
+            this.props.history.push(`/blogs/`)
         })
 
 

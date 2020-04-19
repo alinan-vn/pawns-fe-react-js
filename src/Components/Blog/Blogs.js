@@ -1,6 +1,7 @@
 import React from 'react'
 import { Grid, Feed, Button, Loader} from 'semantic-ui-react'
 import { tokenValidation } from '../../Actions/userValidation'
+import { saveBlogs } from '../../Actions/blogs'
 import { connect } from 'react-redux'
 import { loginUser } from '../../Actions/auth'
 import '../../App.css'
@@ -15,15 +16,36 @@ class Blogs extends React.Component {
         } else {
             return(
                 this.props.blogs.map(blog => {
-                    
+                    return (
+                        <Feed.Event key={blog.id}>
+                            <Feed.Content>
+                                <Feed.Summary>
+                                    <h1>{blog.title}</h1>
+                                    <h3>
+                                        written by {blog.author} on {blog.date}
+                                    </h3>
+                                    <p>
+                                        {blog.content}
+                                    </p>
+                                </Feed.Summary>
+                            </Feed.Content>
+                        </Feed.Event>
+                    )
                 })
             )
         }
         
     }
 
+    fetchBlogs = () => {
+        fetch('http://localhost:3000/blogs/')
+        .then(r => r.json())
+        .then(blogs => this.props.saveBlogs(blogs))
+    }
+    
     componentDidMount(){
         tokenValidation(this.props)
+        this.fetchBlogs()
     }
 
     render(){
@@ -41,7 +63,8 @@ class Blogs extends React.Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        loginUser: user => dispatch(loginUser(user))
+        loginUser: user => dispatch(loginUser(user)),
+        saveBlogs: blogs => dispatch(saveBlogs(blogs))
     }
 }
 
