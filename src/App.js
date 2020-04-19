@@ -1,14 +1,20 @@
 import React from 'react';
 import MenuBar from './Components/MenuBar'
 
-import HomeFeed from './Components/Dashboard/HomeFeed'
 // import Tournaments from './Components/Tournaments'
 import Profile from './Components/ProfileData/Profile'
 import Login from './Components/Account/Login'
-import Article from './Components/Card/Article'
 import CreateAccount from './Components/Account/CreateAccount'
+
 import UserProfile from './Components/ProfileData/OtherProfile'
 import EditProfile from './Components/ProfileData/ProfileEdit'
+
+import Blogs from './Components/Blog/Blogs'
+import newBlog from './Components/Blog/newBlog'
+// import editBlog from './Components/Blog/editBlog'
+
+import HomeFeed from './Components/Dashboard/HomeFeed'
+import Article from './Components/Card/Article'
 import writeArticle from './Components/Writer/writeArticle'
 import EditArticle from './Components/Writer/editArticle'
 
@@ -41,6 +47,9 @@ class App extends React.Component {
 
         <Route exact path ='/articles/:id' component={Article} />
         <Route exact path='/users/:id' component={UserProfile} />
+
+        <Route exact path='/new-blog' component={newBlog} />
+        <Route exact path='/blogs' component={Blogs} />
 
         {/* <Route exact path='/loginz' component={Login} /> */}
 

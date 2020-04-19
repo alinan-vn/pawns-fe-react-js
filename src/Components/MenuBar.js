@@ -25,6 +25,27 @@ class MenuBar extends React.Component {
     this.props.history.push(name)
   }
 
+  showProfile = () => {
+    const menuItem = {
+      background: '#808080',
+      width: '100px',
+      textAlign: 'center',
+      padding: '12px'
+    }
+
+    if(this.props.user){
+      return(
+        <Menu.Item
+          style={menuItem}
+          name='/profile'
+          onClick={this.handleRedirect}
+        >
+          Profile
+        </Menu.Item>
+      )
+    }
+  }
+
   writeArticle = () => {
     const menuItem = {
       background: '#808080',
@@ -42,7 +63,17 @@ class MenuBar extends React.Component {
         >
           Add an Article!
         </Menu.Item>
-      ) 
+      )
+    } else if (this.props.user){
+      return(
+        <Menu.Item
+          style={menuItem}
+          name='/new-blog'
+          onClick={this.handleRedirect}
+        >
+          Blog about it!
+        </Menu.Item>
+      )
     }
   }
 
@@ -87,18 +118,19 @@ class MenuBar extends React.Component {
             circular={true}
           />
         </Menu.Item>
+        <Menu.Item
+          style={menuItem}
+          name='/blogs'
+          onClick={this.handleRedirect}
+        >
+          the blog
+        </Menu.Item>
         
         <Menu.Menu position='right'>
           
           { this.writeArticle() }
+          { this.showProfile() }
 
-          <Menu.Item
-            style={menuItem}
-            name='/profile'
-            onClick={this.handleRedirect}
-          >
-            Profile
-          </Menu.Item>
           <Menu.Item
             style={menuItem}
             name='/login'

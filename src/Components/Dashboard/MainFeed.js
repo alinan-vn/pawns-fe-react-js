@@ -92,6 +92,9 @@ class MainFeed extends React.Component {
     componentDidMount(){
         this.fetchArticles()
         tokenValidation(this.props)
+        if(!this.props.user){
+            alert('Please log in or create an account to view further content')
+        }
     }
 
     render(){
