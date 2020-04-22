@@ -7,27 +7,51 @@ import { loginUser } from '../../Actions/auth'
 import '../../App.css'
 
 class Blogs extends React.Component {
+    constructor(){
+        super()
+        this.state = {
+            revBlogs: []
+        }
+    }
+
+    reverseBlogs = (blogArray) => {
+        const revB = blogArray.reverse()
+        this.setState({
+            ...this.state,
+            revBlogs: revB
+        })
+    }
     
     renderBlogs = () => {
+        const colors = ['#ebd6b7', '#b3b3b3']
+
         if (this.props.blogs.length === 0){
             return(
                 <div>Loading</div>
             )
         } else {
             return(
-                this.props.blogs.map(blog => {
+                this.state.revBlogs.map((blog, ind )=> {
+                    const num = ind % 2
                     return (
-                        <Feed.Event key={blog.id}>
+                        <Feed.Event 
+                            key={ind}
+                        >
                             <Feed.Content>
-                                <Feed.Summary>
-                                    <h1>{blog.title}</h1>
-                                    <h3>
+                                <Feed.Summary   
+                                    style={{background: colors[num]}}
+                                >
+                                    <h1 className='mainFont'>{blog.title}</h1>
+                                    <p className='mainFont'><strong>
                                         written by {blog.author} on {blog.date}
-                                    </h3>
-                                    <p>
+                                    </strong>
+                                       
+                                    </p>
+                                    <p className='mainFont'>
                                         {blog.content}
                                     </p>
                                 </Feed.Summary>
+                                <hr />
                             </Feed.Content>
                         </Feed.Event>
                     )
@@ -40,7 +64,10 @@ class Blogs extends React.Component {
     fetchBlogs = () => {
         fetch('http://localhost:3000/blogs/')
         .then(r => r.json())
-        .then(blogs => this.props.saveBlogs(blogs))
+        .then(blogs => {
+            this.props.saveBlogs(blogs)
+            this.reverseBlogs(blogs)
+        })
     }
     
     componentDidMount(){
@@ -49,11 +76,21 @@ class Blogs extends React.Component {
     }
 
     render(){
+        const backgroundCard = {
+            background: 'white',
+            borderRadius: '10px',
+            marginTop: '50px',
+            boxShadow: '5px 10px black',
+            opacity: '0.8'
+        }
         return(
             <Grid>
                 <Grid.Column width={4} />
 
-                <Grid.Column width={8} className='divBackgroundCardWShadow'>
+                <Grid.Column width={8}
+                    className='scrollContainer'
+                    style={backgroundCard}
+                >
                     { this.renderBlogs() }
                 </Grid.Column>
             </Grid>
