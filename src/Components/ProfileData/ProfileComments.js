@@ -70,7 +70,7 @@ class ProfileComments extends React.Component {
         })
     }
 
-    componentWillMount (){
+    componentDidMount (){
         this.getUser()
     }
 
@@ -79,7 +79,7 @@ class ProfileComments extends React.Component {
             <div style={{background: '#b3b3b3'}}>
                 <h1 className='titlePadding mainFont' style={{textAlign: 'center'}}>Comments!</h1>
                 <br />
-                <Feed className='scrollContainer' style={{maxHeight: '400px'}}>
+                <Feed className='scrollContainer' style={{maxHeight: '200px'}}>
                     { this.commentFeed() }
                 </Feed>
             </div>

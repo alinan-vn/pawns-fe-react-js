@@ -5,6 +5,7 @@ import { loginUser } from '../../Actions/auth'
 import { tokenValidation } from '../../Actions/userValidation'
 import ProfileEditForm from './ProfileEdit'
 import ProfileComments from './ProfileComments'
+import ProfileBlogs from './ProfileBlogs'
 import { withRouter } from 'react-router-dom'
 import '../../App.css'
 
@@ -133,7 +134,7 @@ class Profile extends React.Component {
                     <p>ELO { this.props.user.elo }</p>
                     <p style={{fontSize: '20px'}} >About { username }! </p>
 
-                    <div className='divBackgroundCardWOShadow' style={{background: '#b3b3b3'}}>
+                    <div className='divBackgroundCardWOShadow' style={{background: '#709078'}}>
                         <p>{ this.props.user.bio }</p>
                     </div>
                 </div>
@@ -150,6 +151,8 @@ class Profile extends React.Component {
                    { this.props.user ? null : <p>loading</p> }
                    { this.state.editting ? <ProfileEditForm /> : null}
                    
+                   <hr />
+                   <ProfileBlogs />
                    <hr />
                    <ProfileComments />
 
