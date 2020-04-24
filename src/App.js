@@ -10,6 +10,7 @@ import UserProfile from './Components/ProfileData/OtherProfile'
 import EditProfile from './Components/ProfileData/ProfileEdit'
 
 import Blogs from './Components/Blog/Blogs'
+import Blog from './Components/Blog/Blog'
 import newBlog from './Components/Blog/newBlog'
 // import editBlog from './Components/Blog/editBlog'
 
@@ -50,12 +51,9 @@ class App extends React.Component {
 
         <Route exact path='/new-blog' component={newBlog} />
         <Route exact path='/blogs' component={Blogs} />
-
-        {/* <Route exact path='/loginz' component={Login} /> */}
-
-        {/* <Route exact path ='/placeholding' component={PlaceHolding} /> */}
-        
-      </Router>
+        <Route exact path='/blog/:id' component={Blog} />
+ 
+      </ Router>
     )
   }
 }

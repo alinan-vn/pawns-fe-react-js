@@ -6,6 +6,7 @@ function blogReducer(
 ){
     switch(action.type){
         case 'SAVE_BLOGS':
+            console.log('blogged', action.blogs)
             return {
                 ...state,
                 blogs: action.blogs

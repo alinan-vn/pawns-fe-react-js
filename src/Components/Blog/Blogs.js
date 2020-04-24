@@ -21,7 +21,39 @@ class Blogs extends React.Component {
             revBlogs: revB
         })
     }
+
+    editBlog = (author, blogId) => {
+        if(this.props.user.username === author){
+            return(
+                <Button
+                    compact={true}
+                    // onClick={() => handleEdit(blogId)}
+                    style={{backgroundColor: '#78b0a0'}}
+                >
+                    Edit
+                </Button>
+            )
+        }
+    }
+
+    deleteBlog = (author, blogId) => {
+        if(this.props.user.username === author){
+            return(
+                <Button
+                    compact={true}
+                    // onClick={() => handleEdit(blogId)}
+                    style={{backgroundColor: '#709078'}}
+                >
+                    Delete
+                </Button>
+            )
+        }
+    }
     
+    showBlog = (blogId) => {
+        this.props.history.push(`/blog/${blogId}`)
+    }
+
     renderBlogs = () => {
         const colors = ['#ebd6b7', '#b3b3b3']
 
@@ -41,7 +73,10 @@ class Blogs extends React.Component {
                                 <Feed.Summary   
                                     style={{background: colors[num]}}
                                 >
-                                    <h1 className='mainFont'>{blog.title}</h1>
+                                    <h1 className='mainFont cursorPoint' onClick={() => this.showBlog(blog.id)}>
+                                        {blog.title}</h1>
+                                    { this.editBlog(blog.author, blog.id) }
+                                    { this.deleteBlog(blog.author, blog.id)}
                                     <p className='mainFont'><strong>
                                         written by {blog.author} on {blog.date}
                                     </strong>
