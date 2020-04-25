@@ -29,6 +29,31 @@ class Blog extends React.Component {
         })
     }
 
+    showProfile = () => {
+        const userData = {
+            username: this.state.blog.author
+        }
+
+        const userObj = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'application/json'
+            },
+            body: JSON.stringify(userData)
+        }
+
+        fetch(`http://localhost:3000/find_user_by_name`, userObj)
+        .then(r => r.json())
+        .then(user => {
+            if (user.error){
+                return alert(user.error)
+            } else {
+                this.props.history.push(`/users/${user.id}`)
+            }
+        })
+    }
+
     getBlog = () => {
         
         console.log('show blog', this.state.blog)
@@ -36,7 +61,13 @@ class Blog extends React.Component {
         return(
             <div>
                 <h1>{ this.state.blog.title }</h1>
-                <p><strong>written by { this.state.blog.author } on { this.state.blog.date }</strong></p>
+                <p 
+                    onClick={ () => this.showProfile() }
+                    className='cursorPoint'
+                >
+                    <strong>written by { this.state.blog.author } on { this.state.blog.date }
+                    </strong>
+                </p>
                 <p>{ this.state.blog.content }</p>
             </div>
         )

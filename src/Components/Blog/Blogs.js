@@ -54,6 +54,14 @@ class Blogs extends React.Component {
         this.props.history.push(`/blog/${blogId}`)
     }
 
+    contentReducer = (string) => {
+        let stringArray = string.split(' ')
+        stringArray = stringArray.splice(0, 40)
+        let content = stringArray.join(' ')
+        content += ' . . .'
+        return content
+    }
+
     renderBlogs = () => {
         const colors = ['#ebd6b7', '#b3b3b3']
 
@@ -83,7 +91,7 @@ class Blogs extends React.Component {
                                        
                                     </p>
                                     <p className='mainFont'>
-                                        {blog.content}
+                                        { this.contentReducer(blog.content) }
                                     </p>
                                 </Feed.Summary>
                                 <hr />
