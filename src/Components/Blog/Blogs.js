@@ -62,6 +62,31 @@ class Blogs extends React.Component {
         return content
     }
 
+    showProfile = (author) => {
+        const userData = {
+            username: author
+        }
+
+        const userObj = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'application/json'
+            },
+            body: JSON.stringify(userData)
+        }
+
+        fetch(`http://localhost:3000/find_user_by_name`, userObj)
+        .then(r => r.json())
+        .then(user => {
+            if (user.error){
+                return alert(user.error)
+            } else {
+                this.props.history.push(`/users/${user.id}`)
+            }
+        })
+    }
+
     renderBlogs = () => {
         const colors = ['#ebd6b7', '#b3b3b3']
 
@@ -85,10 +110,13 @@ class Blogs extends React.Component {
                                         {blog.title}</h1>
                                     { this.editBlog(blog.author, blog.id) }
                                     { this.deleteBlog(blog.author, blog.id)}
-                                    <p className='mainFont'><strong>
+                                    <p 
+                                        className='mainFont cursorPoint'
+                                        onClick={() => this.showProfile(blog.author)}
+                                    >
+                                        <strong>
                                         written by {blog.author} on {blog.date}
-                                    </strong>
-                                       
+                                        </strong>  
                                     </p>
                                     <p className='mainFont'>
                                         { this.contentReducer(blog.content) }

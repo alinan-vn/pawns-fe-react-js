@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-// import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { Feed, Icon } from 'semantic-ui-react'
 import '../../App.css'
 
@@ -32,6 +32,10 @@ class ProfileBlogs extends React.Component {
         })
     }
 
+    showBlog = (blogId) => {
+        this.props.history.push(`/blog/${blogId}`)
+    }
+
     blogFeed = () => {
         if(this.state.blogs.length === 0){
             return(
@@ -48,10 +52,11 @@ class ProfileBlogs extends React.Component {
                         style={{background: colors[num]}}
                     >
                         <Feed.Content>
-                            <Feed.Summary
-                                className='cursorPoint'
-                            >
-                                <p className='contentIndent'>
+                            <Feed.Summary>
+                                <p 
+                                    className='contentIndent cursorPoint'
+                                    onClick={() => this.showBlog(blog.id)}
+                                >
                                     {blog.title}                        
                                 </p>
                             </Feed.Summary>
@@ -116,4 +121,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(ProfileBlogs)
+export default withRouter(connect(mapStateToProps)(ProfileBlogs))
