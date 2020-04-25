@@ -14,7 +14,8 @@ class viewProfile extends React.Component {
             id: null,
             profile_background: '',
             profile_pic: '',
-            comments: []
+            comments: [],
+            blogs: []
         }
     }
 
@@ -32,8 +33,8 @@ class viewProfile extends React.Component {
         .then(resp => resp.json())
         .then(user => {
             this.setProfilePicAndBackground(user)
-            console.log(user)
             this.setProfileComments(user)
+            this.setBlogs(user.username)
             this.props.setProfile(user)
         })
     }
@@ -71,6 +72,59 @@ class viewProfile extends React.Component {
                     <hr />
                 </Feed.Event>
             )    
+        })
+    }
+
+    profileBlogs = () => {
+        if(this.state.blogs.length === 0){
+            return(
+                <em style={{textAlign: 'center'}}><p>this user has not written any blogs</p></em>
+            )
+        } else{
+            return this.state.blogs.map((blog, ind) => {
+                const colors = ['#ebd6b7', '#86a6df']
+                const num = ind % 2
+                return(
+                    <Feed.Event 
+                        icon='chess rook'
+                        key={ind}
+                        style={{background: colors[num]}}
+                    >
+                        <Feed.Content>
+                            <Feed.Summary>
+                                <p 
+                                    className='contentIndent cursorPoint'
+                                    onClick={() => this.showBlog(blog.id)}
+                                >
+                                    {blog.title}                        
+                                </p>
+                            </Feed.Summary>
+                        </Feed.Content>
+                        <hr />
+                    </Feed.Event>
+                )
+            })
+        }
+    }
+
+    showBlog = (blogId) => {
+        this.props.history.push(`/blog/${blogId}`)
+    }
+
+    setBlogs = (username) => {
+        fetch('http://localhost:3000/blogs/')
+        .then(r => r.json())
+        .then(blogs => {
+            this.filterBlogs(blogs, username)
+        })
+    }
+
+    filterBlogs = (blogArray, username) => {
+        let revBlogs = blogArray.reverse()
+        let filteredBlogs = revBlogs.filter(blog => blog.author === username)
+        this.setState({
+            ...this.state,
+            blogs: filteredBlogs
         })
     }
 
@@ -126,12 +180,24 @@ class viewProfile extends React.Component {
                         <p>ELO { this.props.profile.elo }</p>
                         <p style={{fontSize: '20px'}} >About { this.props.profile.username }! </p>
                         <p>{ this.props.profile.bio }</p>
+
+                        <hr />
+                        <h2 style={{textAlign: 'center'}}>Blogs!</h2>
+                        <hr />
+                        <Feed
+                            className='scrollContainer'
+                            style={{maxHeight: '200px'}}
+                        >
+                            { this.profileBlogs() }
+                        </Feed>
+
                         <hr />
                         <h2 style={{textAlign: 'center'}}>Comments!</h2>
                         <hr />
                         <Feed className='scrollContainer' style={{maxHeight: '400px'}}>
                             { this.profileComments() }
                         </Feed>
+                        
                         
                 </Grid.Column>
             )

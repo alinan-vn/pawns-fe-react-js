@@ -83,7 +83,6 @@ class ProfileBlogs extends React.Component {
             fetch('http://localhost:3000/current_user', tokenObj)
             .then(r => r.json())
             .then(user => {
-                console.log('FROM PROFILE COMMENTS', user)
                 this.setBlogs(user.username)
             })
         }
