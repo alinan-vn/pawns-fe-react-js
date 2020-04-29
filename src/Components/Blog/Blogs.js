@@ -27,7 +27,7 @@ class Blogs extends React.Component {
             return(
                 <Button
                     compact={true}
-                    // onClick={() => handleEdit(blogId)}
+                    onClick={() => {this.props.history.push(`/edit-blog/${blogId}`)}}
                     style={{backgroundColor: '#78b0a0'}}
                 >
                     Edit

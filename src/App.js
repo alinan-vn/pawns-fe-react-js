@@ -12,7 +12,7 @@ import EditProfile from './Components/ProfileData/ProfileEdit'
 import Blogs from './Components/Blog/Blogs'
 import Blog from './Components/Blog/Blog'
 import newBlog from './Components/Blog/newBlog'
-// import editBlog from './Components/Blog/editBlog'
+import editBlog from './Components/Blog/editBlog'
 
 import HomeFeed from './Components/Dashboard/HomeFeed'
 import Article from './Components/Card/Article'
@@ -52,7 +52,8 @@ class App extends React.Component {
         <Route exact path='/new-blog' component={newBlog} />
         <Route exact path='/blogs' component={Blogs} />
         <Route exact path='/blog/:id' component={Blog} />
- 
+        <Route exact path='/edit-blog/:id' component={editBlog} />
+
       </ Router>
     )
   }
