@@ -41,13 +41,28 @@ class Blogs extends React.Component {
             return(
                 <Button
                     compact={true}
-                    // onClick={() => handleEdit(blogId)}
+                    onClick={() => this.handleDelete(blogId)}
                     style={{backgroundColor: '#709078'}}
                 >
                     Delete
                 </Button>
             )
         }
+    }
+
+    handleDelete = blogId => {
+        const blogObj = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({id: blogId})
+        }
+
+        fetch(`http://localhost:3000/blogs/${blogId}`, blogObj)
+        .then( r=> r.json())
+        .then(json => this.fetchBlogs())
     }
     
     showBlog = (blogId) => {
