@@ -41,8 +41,8 @@ class MainFeed extends React.Component {
                         >
                             <Icon name='chess' />
                         </Button> 
-                        { this.editButton(colorsInv[num], article.author, article.id) }
-                        { this.deleteButton(colorsInv[num], article.author) }
+                        { this.props.user ? this.editButton(colorsInv[num], article.author, article.id) : null }
+                        { this.props.user ? this.deleteButton(colorsInv[num], article.author) : null }
                     </div>                  
                     <hr />
                 </Container>
@@ -89,12 +89,30 @@ class MainFeed extends React.Component {
         .then(articles => this.props.saveArticles(articles))
     }
 
+    tokenValidation = (props) => {
+        const token = localStorage.getItem('token')
+        if(!token){
+            alert('Please log in or create an account to view further content')
+        }else {
+            const reqObj = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+    
+            fetch('http://localhost:3000/current_user', reqObj)
+            .then(resp => resp.json())
+            .then(user => {
+                props.loginUser(user)
+            })
+        }
+    }
+
     componentDidMount(){
         this.fetchArticles()
-        tokenValidation(this.props)
-        if(!this.props.user){
-            alert('Please log in or create an account to view further content')
-        }
+        this.tokenValidation(this.props)
     }
 
     render(){
