@@ -55,8 +55,18 @@ class Blog extends React.Component {
     }
 
     getBlog = () => {
-        
-        console.log('show blog', this.state.blog)
+        console.log(this.state.blog)
+
+        const date = this.translateDate(this.state.blog.created_at)
+        const upDate = this.translateDate(this.state.blog.updated_at)
+
+        let text = ''
+
+        if (date === upDate){
+            text = `${date}`
+        } else {
+            text = `${date}, updated on ${upDate}`
+        }
 
         return(
             <div>
@@ -65,7 +75,8 @@ class Blog extends React.Component {
                     onClick={ () => this.showProfile() }
                     className='cursorPoint'
                 >
-                    <strong>written by { this.state.blog.author } on { this.state.blog.date }
+                    <strong>
+                        written by { this.state.blog.author } on { text }
                     </strong>
                 </p>
                 <p>{ this.state.blog.content }</p>
@@ -74,6 +85,18 @@ class Blog extends React.Component {
 
     }
 
+    translateDate = dateText => {
+        let text = dateText.slice(0, 10)
+        text = text.split('-')
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        let monthNum = parseInt(text[1]) - 1
+        const month = months[monthNum]
+        const day = parseInt(text[2])
+
+        let date = `${month} ${day}, ${text[0]}`
+
+        return date
+    }
 
     componentDidMount(){
         this.setBlogs()

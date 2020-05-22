@@ -16,6 +16,10 @@ class Blogs extends React.Component {
 
     reverseBlogs = (blogArray) => {
         const revB = blogArray.reverse()
+
+        
+
+
         this.setState({
             ...this.state,
             revBlogs: revB
