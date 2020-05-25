@@ -10,7 +10,6 @@ class newBlog extends React.Component {
         super()
         this.state = {
             title: '',
-            date: '',
             content: '',
             author: ''
         }
@@ -75,15 +74,6 @@ class newBlog extends React.Component {
                                 title='title'
                                 placeholder="blog's title here"
                                 value={this.state.title}
-                                onChange={this.handleInputChange}
-                            />
-                        </Form.Field>
-                        <Form.Field>
-                            <label>Date (mm-dd-yyyy)</label>
-                            <input 
-                                title='date'
-                                placeholder='mm-dd-yyyy'
-                                value={this.state.date}
                                 onChange={this.handleInputChange}
                             />
                         </Form.Field>

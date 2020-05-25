@@ -17,9 +17,6 @@ class Blogs extends React.Component {
     reverseBlogs = (blogArray) => {
         const revB = blogArray.reverse()
 
-        
-
-
         this.setState({
             ...this.state,
             revBlogs: revB
@@ -134,7 +131,7 @@ class Blogs extends React.Component {
                                         onClick={() => this.showProfile(blog.author)}
                                     >
                                         <strong>
-                                        written by {blog.author} on {blog.date}
+                                        written by {blog.author}
                                         </strong>  
                                     </p>
                                     <p className='mainFont'>
