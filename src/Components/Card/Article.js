@@ -9,18 +9,23 @@ import '../../App.css'
 
 class ArticleCard extends React.Component {
     constructor(){
+
         super()
         this.state ={
             voteCount: 0
         }
     }
 
-    dateTranslator = () => {
+    dateTranslator = dateText => {
+        let text = dateText.slice(0, 10)
+        text = text.split('-')
         const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        let dateArray = this.props.article.date.split('-')
-        let month = months[parseInt(dateArray[0])]
-        let year = parseInt(dateArray[2])
-        let date = `Posted on ${month} ${dateArray[1]}, ${year}`
+        let monthNum = parseInt(text[1]) - 1
+        const month = months[monthNum]
+        const day = parseInt(text[2])
+
+        let date = `${month} ${day}, ${text[0]}`
+
         return date
     }
 
@@ -55,16 +60,22 @@ class ArticleCard extends React.Component {
     }
     
     articleInfo = () => {
+        const date = this.dateTranslator(this.props.article.created_at)
+        const upDate = this.dateTranslator(this.props.article.created_at)
+
+        let text = ''
+
+        if (date === upDate){
+            text = `${date}`
+        } else {
+            text = `${date}, updated on ${upDate}`
+        }
+
         return(
             <div>
                 <h1 className='mainFont' style={{textAlign:'center'}}>{ this.props.article.title }</h1>
-                <p>Written by: { this.props.article.author }. Posted on: { this.dateTranslator() }</p>
+                <p>Written by: { this.props.article.author }. Posted on: { text }</p>
                 <p className='contentJustify'>{ this.props.article.content }</p>
-                {/* <Grid>
-                    <Grid.Column width={2}>
-                        <Button content={ `${this.state.voteCount}` }  />
-                    </Grid.Column>
-                </Grid> */}
             </div>
         )
 
