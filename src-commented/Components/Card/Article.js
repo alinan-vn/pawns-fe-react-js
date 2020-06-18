@@ -74,7 +74,7 @@ class ArticleCard extends React.Component {
         return(
             <div>
                 <h1 className='mainFont' style={{textAlign:'center'}}>{ this.props.article.title }</h1>
-                <p>Written by: { this.props.article.author }. Posted on: { text }</p>
+                <p>Written by: { this.props.article.author }. Posted on: { text  }</p>
                 <p className='contentJustify'>{ this.props.article.content }</p>
             </div>
         )
