@@ -35,7 +35,7 @@ export default class Nav extends Component {
             <ul className='nav-ul'>
                 <li className='nav-li'>
                     <a className={this.state.navClass} href="/">
-                        City of Wind Design
+                        Pawns
                     </a>
                 </li>
                 {/* <li className='nav-li'>

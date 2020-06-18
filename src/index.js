@@ -11,6 +11,7 @@ import { createStore } from 'redux'
 
 import App from './App';
 import Nav from './Components/global/nav/index';
+import Footer from './Components/global/footer/index';
 
 
 const store = createStore(
@@ -22,10 +23,8 @@ ReactDOM.render(
     <Provider store={ store }>
         <Nav />
         <App />
+        <Footer />
     </Provider>
-    // <body>
-    //     <App />
-    // </body>
     , 
     document.getElementById('root')
 );
