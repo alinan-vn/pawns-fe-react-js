@@ -4,9 +4,15 @@
 
     grid-area: side;
 
-    &__headline {
+    &__header {
+        font-size: 2rem;
+        color: $fourth-color;
+    }
+
+    &__title {
         font-size: 1.2rem;
         width: 16vw;
+        color: $third-color;
     }
 
     &__author {

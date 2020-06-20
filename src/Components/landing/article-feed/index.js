@@ -1,13 +1,50 @@
 import React from 'react';
+// import { loginUser } from '../../Actions/auth';
+// import { tokenValidation } from '../../Actions/userValidation';
+import { connect } from 'react-redux';
+// import { withRouter } from 'react-router-dom';
 
 class ArticleFeed extends React.Component {
+
+    contentReducer = (string, amount) => {
+        let stringArray = string.split(' ')
+        stringArray = stringArray.splice(0, amount)
+        let content = stringArray.join(' ')
+        return content
+    }
+
+    articleCards = () => {
+        if (this.props.articles.length === 0){
+            return <h1>loading</h1>
+        } else {
+            return this.props.articles.map((card, ind) => {
+                return(
+                    <div id={ind} className='article-feed__card'>
+                        <h1 className='article-feed__title'>{ card.title }</h1>
+                        <h3 className='article-feed__author'>by { card.author }</h3>
+                        <p className='article-feed__content'>{ this.contentReducer(card.content, 40) }...</p>
+                    </div>
+                )
+            })
+        }
+        
+    }
+
+
     render(){
         return(
             <div className='article-feed'>
-                Before I start to teach you the amazing ability to create a search form, make sure that you are updated to rails 5. If you are not updated, like I was when I originally started working on this, you will have all the right code, but nothing will work. You will then stare at your code for hours, looking around confused why nothing is working like below. 
+                <h1 className='article-feed__header'>Articles!</h1>
+                { this.articleCards() }
             </div>
         )
     }
 }
 
-export default ArticleFeed
+const mapStateToProps = state => {
+    return{
+        articles: state.articleReducer.articles
+    }
+}
+
+export default connect(mapStateToProps)(ArticleFeed)

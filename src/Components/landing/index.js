@@ -7,12 +7,6 @@ class Landing extends React.Component {
         return(
             <main>
                 <section className='landing'>
-                    {/* <div className='base-sidebar'>
-                        <Sidebar />
-                    </div>
-                    <div className='base-article-feed'>
-                        <ArticleFeed />
-                    </div> */}
                     <Sidebar />
                     <ArticleFeed />
                 </section>

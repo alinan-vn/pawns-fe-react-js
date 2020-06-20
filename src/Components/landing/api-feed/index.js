@@ -47,7 +47,7 @@ class SideBarHomeFeed extends React.Component {
             return(
                 <div id={ind} className='sidebar__card'>
                     <img className='sidebar__card-image' src={imgUrl} />
-                    <h1 className='sidebar__headline'>{ this.contentReducer(card.headline.main, 4) }...</h1>
+                    <h1 className='sidebar__title'>{ this.contentReducer(card.headline.main, 4) }...</h1>
                     <h3 className='sidebar__author'>{ card.byline.original }</h3>
                     <p className='sidebar__abstract'>{ this.contentReducer(card.abstract, 15) }...</p>
                 </div>
@@ -62,7 +62,7 @@ class SideBarHomeFeed extends React.Component {
     render(){
         return(
             <div className='sidebar'>
-                {console.log('checking', this.state)}
+                <h1 className='sidebare__header'>New York Times</h1>
                 { this.state.articles.length === 0 ? <p>Loading</p> : this.sidebarCards() }
             </div>
             
