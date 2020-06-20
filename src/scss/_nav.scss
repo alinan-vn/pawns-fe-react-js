@@ -18,11 +18,7 @@ header {
         font-weight: bold;
         margin-top: 2rem;
         @include medium-transition;
-
-        // &:hover {
-        //     color: $primary-color;
-        //     cursor: pointer;
-        // }
+        font-size: 2rem;
     }
 
     &-ul {

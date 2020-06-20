@@ -1,0 +1,27 @@
+.sidebar {
+    margin-left: 1.4rem;
+    width: 20vw;
+
+    grid-area: side;
+
+    &__headline {
+        font-size: 1.2rem;
+        width: 16vw;
+    }
+
+    &__author {
+        font-size: .9rem;
+    }
+
+    &__abstract {
+        font-size: 1rem;
+        text-align: justify;
+        width: 16vw;
+    }
+
+    &__card-image {
+        width: 70%;
+        height: auto;
+    }
+    
+}
