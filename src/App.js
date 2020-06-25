@@ -10,6 +10,7 @@ import { saveArticles } from '../src/Actions/articles'
 
 
 import Landing from './Components/landing/index';
+import Article from './Components/article/index';
 
 class App extends React.Component {
 
@@ -27,6 +28,7 @@ class App extends React.Component {
     return(
       <Router >
         <Route exact path='/' component={Landing} />
+        <Route exact path='/article/:id' component={Article} />
       </ Router>
     )
   }
@@ -42,11 +44,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
   return {
       saveArticles: articles => dispatch(saveArticles(articles)),
-      // currentArticle: article => dispatch(currentArticle(article)),
       // loginUser: user => dispatch(loginUser(user))
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
-
-// withRouter(connect(mapStateToProps, mapDispatchToProps)(MainFeed))

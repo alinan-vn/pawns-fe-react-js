@@ -36,7 +36,7 @@ class SideBarHomeFeed extends React.Component {
     }
 
     sidebarCards = () => {
-        // const card = this.state.articles[0]
+        console.log('look for url', this.state.articles[0].web_url)
         return this.state.articles.map((card, ind) => {
             let imgUrl = require('../../../images/api-feed/api-default-img.png')
 
@@ -47,7 +47,7 @@ class SideBarHomeFeed extends React.Component {
             return(
                 <div id={ind} className='sidebar__card'>
                     <img className='sidebar__card-image' src={imgUrl} />
-                    <h1 className='sidebar__title'>{ this.contentReducer(card.headline.main, 4) }...</h1>
+                    <h1 className='sidebar__title'><a href={card.web_url} target='_blank'>{ this.contentReducer(card.headline.main, 4) }...</a></h1>
                     <h3 className='sidebar__author'>{ card.byline.original }</h3>
                     <p className='sidebar__abstract'>{ this.contentReducer(card.abstract, 15) }...</p>
                 </div>

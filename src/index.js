@@ -1,6 +1,3 @@
-// import '../src-commented/node_modules/semantic-ui-css/semantic.min.css'
-// import './App.css'
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import rootReducer from './Reducers/rootReducer'

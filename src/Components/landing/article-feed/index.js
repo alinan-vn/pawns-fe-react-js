@@ -2,7 +2,7 @@ import React from 'react';
 // import { loginUser } from '../../Actions/auth';
 // import { tokenValidation } from '../../Actions/userValidation';
 import { connect } from 'react-redux';
-// import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class ArticleFeed extends React.Component {
 
@@ -14,6 +14,7 @@ class ArticleFeed extends React.Component {
     }
 
     articleCards = () => {
+        
         if (this.props.articles.length === 0){
             return <h1>loading</h1>
         } else {
@@ -21,13 +22,17 @@ class ArticleFeed extends React.Component {
                 return(
                     <div id={ind} className='article-feed__card'>
                         <h1 className='article-feed__title'>{ card.title }</h1>
+                        <button onClick={() => this.handleArticle(card.id) }>Read More</button>
                         <h3 className='article-feed__author'>by { card.author }</h3>
                         <p className='article-feed__content'>{ this.contentReducer(card.content, 40) }...</p>
                     </div>
                 )
             })
         }
-        
+    }
+
+    handleArticle = articleId => {
+        this.props.history.push(`/article/${articleId}`)
     }
 
 
@@ -47,4 +52,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(ArticleFeed)
+export default withRouter(connect(mapStateToProps)(ArticleFeed))
