@@ -14,7 +14,7 @@ class ArticleFeed extends React.Component {
     }
 
     articleCards = () => {
-        
+        console.log('hel', this.props)
         if (this.props.articles.length === 0){
             return <h1>loading</h1>
         } else {
@@ -34,7 +34,6 @@ class ArticleFeed extends React.Component {
     handleArticle = articleId => {
         this.props.history.push(`/article/${articleId}`)
     }
-
 
     render(){
         return(
