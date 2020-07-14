@@ -92,7 +92,7 @@ class MainFeed extends React.Component {
     tokenValidation = (props) => {
         const token = localStorage.getItem('token')
         if(!token){
-            alert('Please log in or create an account to view further content')
+            alert("Please log in (username: 'mark', password: 'guest') or create an account to view further content")
         }else {
             const reqObj = {
                 method: 'GET',
