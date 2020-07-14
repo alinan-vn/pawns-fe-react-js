@@ -18,7 +18,7 @@ class Comments extends React.Component {
     }
 
     fetchComments = () => {
-        fetch(`http://localhost:3000/get_votes_and_comments/${this.props.match.params.id}`)
+        fetch(`https://enigmatic-gorge-45286.herokuapp.com/get_votes_and_comments/${this.props.match.params.id}`)
         .then(resp => resp.json())
         .then(obj => {
             this.setComments(obj.comments)
@@ -36,13 +36,13 @@ class Comments extends React.Component {
     }
 
     fetchUser = (id) => {
-        return fetch(`http://localhost:3000/users/${id}`)
+        return fetch(`https://enigmatic-gorge-45286.herokuapp.com/users/${id}`)
         .then(resp => resp.json())
         .then(user => this.setUser(user))
     }
 
     pushProfile = (id) => {
-        fetch(`http://localhost:3000/users/${id}`)
+        fetch(`https://enigmatic-gorge-45286.herokuapp.com/users/${id}`)
         .then(resp => resp.json())
         .then(user => {
             console.log('fetching a user?', user)
@@ -72,7 +72,7 @@ class Comments extends React.Component {
             body: JSON.stringify(comment)
         }
 
-        fetch(`http://localhost:3000/comments/${comment.id}`, commentObj)
+        fetch(`https://enigmatic-gorge-45286.herokuapp.com/comments/${comment.id}`, commentObj)
         .then(resp => resp.json())
         .then(json => {this.fetchComments()})
     }
@@ -83,7 +83,7 @@ class Comments extends React.Component {
         })
     }
 
-    saveComment = (e) => {
+    saveComment = () => {
         const commentData = {
             content: this.state.comment,
             article_id: this.props.article.id,
@@ -101,7 +101,7 @@ class Comments extends React.Component {
             body: JSON.stringify(commentData)
         }
 
-        fetch('http://localhost:3000/comments', commentObj)
+        fetch('https://enigmatic-gorge-45286.herokuapp.com/comments', commentObj)
         .then(resp => resp.json())
         .then(json => {
             this.fetchComments()

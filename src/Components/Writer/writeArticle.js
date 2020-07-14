@@ -40,7 +40,7 @@ class writeArticle extends React.Component {
             body: JSON.stringify(this.state)
         }
 
-        fetch(`http://localhost:3000/post_article`, articleObj)
+        fetch(`https://enigmatic-gorge-45286.herokuapp.com/post_article`, articleObj)
         .then(r => r.json())
         .then(article => {
             this.props.history.push(`/articles/${article.id}`)

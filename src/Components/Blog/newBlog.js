@@ -45,7 +45,7 @@ class newBlog extends React.Component {
             body: JSON.stringify(blogData)
         }
 
-        fetch(`http://localhost:3000/post_blog`, blogObj)
+        fetch(`https://enigmatic-gorge-45286.herokuapp.com/post_blog`, blogObj)
         .then(r => r.json())
         .then(blog => {
             this.props.history.push(`/blogs/`)

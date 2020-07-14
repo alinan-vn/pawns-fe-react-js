@@ -23,7 +23,7 @@ class editArticle extends React.Component{
     }
 
     getEditForm = () => {
-        fetch(`http://localhost:3000/articles/${this.props.match.params.id}`)
+        fetch(`https://enigmatic-gorge-45286.herokuapp.com/articles/${this.props.match.params.id}`)
         .then(r => r.json())
         .then(article => {
             this.setState({
@@ -52,7 +52,7 @@ class editArticle extends React.Component{
             body: JSON.stringify(articleData)
         }
 
-        fetch(`http://localhost:3000/articles/${this.props.match.params.id}`, articleObj)
+        fetch(`https://enigmatic-gorge-45286.herokuapp.com/articles/${this.props.match.params.id}`, articleObj)
         .then(r => r.json())
         .then(article => {
             // console.log('edit?', article)

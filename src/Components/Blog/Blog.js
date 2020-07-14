@@ -18,7 +18,7 @@ class Blog extends React.Component {
     setBlogs = () => {
         const blogId = this.props.match.params.id
 
-        fetch(`http://localhost:3000/blogs/${blogId}`)
+        fetch(`https://enigmatic-gorge-45286.herokuapp.com/${blogId}`)
         .then(r => r.json())
         .then(blog => {
             // this.props.saveBlogs(blogs)
@@ -43,7 +43,7 @@ class Blog extends React.Component {
             body: JSON.stringify(userData)
         }
 
-        fetch(`http://localhost:3000/find_user_by_name`, userObj)
+        fetch(`https://enigmatic-gorge-45286.herokuapp.com/find_user_by_name`, userObj)
         .then(r => r.json())
         .then(user => {
             if (user.error){

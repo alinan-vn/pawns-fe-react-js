@@ -34,7 +34,7 @@ class ProfileEditForm extends React.Component {
             body: JSON.stringify(profileData)
         }     
 
-        fetch(`http://localhost:3000/users/${this.props.user.id}`, profileObj)
+        fetch(`https://enigmatic-gorge-45286.herokuapp.com/users/${this.props.user.id}`, profileObj)
         .then(r => r.json())
         .then(user => this.props.history.push('/profile'))
 

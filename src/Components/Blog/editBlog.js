@@ -18,7 +18,7 @@ class EditBlog extends React.Component {
     getBlog = () => {
         const blogId = this.props.match.params.id 
 
-        fetch(`http://localhost:3000/blogs/${blogId}`)
+        fetch(`https://enigmatic-gorge-45286.herokuapp.com/${blogId}`)
         .then(r => r.json())
         .then(blog => this.setBlog(blog))
     }
@@ -52,7 +52,7 @@ class EditBlog extends React.Component {
             body: JSON.stringify(this.state)
         }
 
-        fetch(`http://localhost:3000/blogs/${blogId}`, blogObj)
+        fetch(`https://enigmatic-gorge-45286.herokuapp.com/${blogId}`, blogObj)
         .then(r => r.json())
         .then(blog => this.props.history.push(`/blog/${blogId}`))
     }

@@ -61,7 +61,7 @@ class Blogs extends React.Component {
             body: JSON.stringify({id: blogId})
         }
 
-        fetch(`http://localhost:3000/blogs/${blogId}`, blogObj)
+        fetch(`https://enigmatic-gorge-45286.herokuapp.com/blogs/${blogId}`, blogObj)
         .then( r=> r.json())
         .then(json => this.fetchBlogs())
     }
@@ -149,7 +149,7 @@ class Blogs extends React.Component {
     }
 
     fetchBlogs = () => {
-        fetch('http://localhost:3000/blogs/')
+        fetch('https://enigmatic-gorge-45286.herokuapp.com/blogs/')
         .then(r => r.json())
         .then(blogs => {
             this.props.saveBlogs(blogs)

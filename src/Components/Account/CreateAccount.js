@@ -48,7 +48,7 @@ class CreateAccount extends React.Component {
             body: JSON.stringify(userData)
         }
 
-        fetch('http://localhost:3000/auth', userObj)
+        fetch('https://enigmatic-gorge-45286.herokuapp.com/auth', userObj)
         .then(resp => resp.json())
         .then(user => {
             // console.log('correct user?', user)
@@ -82,7 +82,7 @@ class CreateAccount extends React.Component {
                 body: JSON.stringify(userData)
             }
 
-            fetch('http://localhost:3000/users', userObj)
+            fetch('https://enigmatic-gorge-45286.herokuapp.com/users', userObj)
             .then(resp => resp.json())
             .then(user => {
                 localStorage.setItem('token', user.token)

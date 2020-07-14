@@ -30,13 +30,13 @@ class ArticleCard extends React.Component {
     }
 
     fetchArticles = () => {
-        fetch('http://localhost:3000/articles/')
+        fetch('https://enigmatic-gorge-45286.herokuapp.com/articles/')
         .then(resp => resp.json())
         .then(articles => this.props.saveArticles(articles))
     }
 
     fetchVotes = () => {
-        fetch(`http://localhost:3000/get_votes_and_comments/${this.props.match.params.id}`)
+        fetch(`https://enigmatic-gorge-45286.herokuapp.com/get_votes_and_comments/${this.props.match.params.id}`)
         .then(resp => resp.json())
         .then(obj => {
             this.setCountVotes(obj.votes)
@@ -51,7 +51,7 @@ class ArticleCard extends React.Component {
     }
 
     setCurrentArticle = () => {
-        fetch(`http://localhost:3000/articles/${this.props.match.params.id}`)
+        fetch(`https://enigmatic-gorge-45286.herokuapp.com/articles/${this.props.match.params.id}`)
         .then(resp => resp.json())
         .then(obj => {
             console.log('article??', obj)

@@ -25,7 +25,7 @@ class ProfileBlogs extends React.Component {
     }
 
     setBlogs = (username) => {
-        fetch('http://localhost:3000/blogs/')
+        fetch('https://enigmatic-gorge-45286.herokuapp.com/blogs/')
         .then(r => r.json())
         .then(blogs => {
             this.filterBlogs(blogs, username)
@@ -80,7 +80,7 @@ class ProfileBlogs extends React.Component {
                     'Authorization': `Bearer ${token}`
                 }
             }
-            fetch('http://localhost:3000/current_user', tokenObj)
+            fetch('https://enigmatic-gorge-45286.herokuapp.com/current_user', tokenObj)
             .then(r => r.json())
             .then(user => {
                 this.setBlogs(user.username)

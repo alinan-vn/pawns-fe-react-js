@@ -29,7 +29,7 @@ class viewProfile extends React.Component {
     }
 
     setCurrentProfile = () => {
-        fetch(`http://localhost:3000/users/${this.props.match.params.id}`)
+        fetch(`https://enigmatic-gorge-45286.herokuapp.com/users/${this.props.match.params.id}`)
         .then(resp => resp.json())
         .then(user => {
             this.setProfilePicAndBackground(user)
@@ -44,7 +44,7 @@ class viewProfile extends React.Component {
     }
 
     setProfileComments = (user) => {
-        fetch(`http://localhost:3000/get_comments/${user.id}`)
+        fetch(`https://enigmatic-gorge-45286.herokuapp.com/get_comments/${user.id}`)
         .then(resp => resp.json())
         .then(comments => {
             this.setState({
@@ -112,7 +112,7 @@ class viewProfile extends React.Component {
     }
 
     setBlogs = (username) => {
-        fetch('http://localhost:3000/blogs/')
+        fetch('https://enigmatic-gorge-45286.herokuapp.com/blogs/')
         .then(r => r.json())
         .then(blogs => {
             this.filterBlogs(blogs, username)

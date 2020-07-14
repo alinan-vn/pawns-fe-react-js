@@ -84,7 +84,7 @@ class MainFeed extends React.Component {
     }
 
     fetchArticles = () => {
-        fetch('http://localhost:3000/articles/')
+        fetch('https://enigmatic-gorge-45286.herokuapp.com/articles')
         .then(resp => resp.json())
         .then(articles => this.props.saveArticles(articles))
     }
@@ -102,7 +102,7 @@ class MainFeed extends React.Component {
                 }
             }
     
-            fetch('http://localhost:3000/current_user', reqObj)
+            fetch('https://enigmatic-gorge-45286.herokuapp.com/current_user', reqObj)
             .then(resp => resp.json())
             .then(user => {
                 props.loginUser(user)

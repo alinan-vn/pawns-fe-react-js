@@ -14,7 +14,7 @@ class ProfileComments extends React.Component {
     }
 
     setComments = (userId) => {
-        fetch(`http://localhost:3000/get_comments/${userId}`)
+        fetch(`https://enigmatic-gorge-45286.herokuapp.com/get_comments/${userId}`)
         .then(resp => resp.json())
         .then(comments => {
             this.setState({
@@ -36,7 +36,7 @@ class ProfileComments extends React.Component {
                     'Authorization': `Bearer ${token}`
                 }
             }
-            fetch('http://localhost:3000/current_user', tokenObj)
+            fetch('https://enigmatic-gorge-45286.herokuapp.com/current_user', tokenObj)
             .then(r => r.json())
             .then(user => {
                 console.log('FROM PROFILE COMMENTS', user)
