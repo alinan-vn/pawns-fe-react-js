@@ -1,5 +1,4 @@
 import React from 'react'
-import { Grid, Form, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { loginUser } from '../../Actions/auth'
 import { withRouter } from 'react-router-dom'
@@ -52,57 +51,46 @@ class Login extends React.Component{
     }
 
     render(){
-        const loginContainer = {
-            background: '#44d9e6', 
-            borderRadius: '10px', 
-            marginTop: '100px',
-            boxShadow: '5px 10px #3dc4d0',
-            opacity: '0.8'
-        }
         return(
-            <Grid className=''>
-                <Grid.Column width={4} />
+            <section className='login'>
+                <div className='login__form'>
+                    <div className='login__text'>
+                        <p>Username</p>
+                        <input
+                            className='login__text-input'
+                            name='username'
+                            placeholder='username'
+                            onChange={this.handleInputChange}
+                        />
+                    </div>
+                    <div className='login__text'>
+                        <p>Password</p>
+                        <input 
+                            className='login__text-input'
+                            name='password_digest'
+                            type='password'
+                            placeholder='password'
+                            onChange={this.handleInputChange}
+                        />
+                    </div>
 
-                <Grid.Column width={8} style={loginContainer}>
-                    <Form className='mainFont'>
-                        <Form.Field>
-                            {/* <Input label='username' placeholder='username' /> */}
-                            <label>Username</label>
-                            <input 
-                                name='username' 
-                                placeholder='username' onChange={this.handleInputChange} />
-                        </Form.Field>
-                        <Form.Field>
-                            <label>Password</label>
-                            <input name='password_digest' placeholder='password' onChange={this.handleInputChange} type='password' />
-                        </Form.Field>
-                        <Button 
-                            type='submit' 
-                            onClick={this.handleSubmit}
-                            className='mainFont'
-                            style={{
-                                backgroundColor: '#ecfffb'
-                            }}
-                        >
-                            Sign In!
-                        </Button>
-                        <a href='/create-account'>Create an Account!</a>
-                    </Form>
-                    
-                </Grid.Column>
+                    <button 
+                        className='login__button'
+                        type='submit'
+                        onClick={this.handleSubmit}
+                    >
+                        Sign In!
+                    </button>
 
-                <Grid.Column width={4} />
-                
-            </Grid>
-            
-            
+                    <a className='login__create-account' href='/create-account'>Create an Account!</a>
+                </div>
+            </section>
         )
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-
     }
 }
 

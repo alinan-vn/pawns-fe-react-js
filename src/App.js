@@ -1,7 +1,7 @@
 import React from 'react';
 import MenuBar from './Components/MenuBar'
+import './scss/main.scss';
 
-// import Tournaments from './Components/Tournaments'
 import Profile from './Components/ProfileData/Profile'
 import Login from './Components/Account/Login'
 import CreateAccount from './Components/Account/CreateAccount'
@@ -18,8 +18,6 @@ import HomeFeed from './Components/Dashboard/HomeFeed'
 import Article from './Components/Card/Article'
 import writeArticle from './Components/Writer/writeArticle'
 import EditArticle from './Components/Writer/editArticle'
-
-// import PlaceHolding from './Components/PlaceHolding'
 
 import { connect } from 'react-redux'
 
