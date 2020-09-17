@@ -15,23 +15,24 @@ class HomeFeed extends React.Component {
         }
         
         return(
-            <Grid>
-                <div>
-                    {/* <img src='h kttps://media.giphy.com/media/1ZkJFuRcBIRHH9IwPU/giphy.gif' /> */}
-                </div>
-                <Grid.Column width={5}>
-                    <SideBar />
-                </ Grid.Column>
+            <section className='home-feed'>
+                <SideBar />
+                <MainFeed />
+            </section>
 
-                <Grid.Column width={9}>
-                    <h1 style={pawnsStyle}> Pawns</h1>
-                    <MainFeed />
+
+
+            // <Grid>
+            //     <Grid.Column width={5}>
+            //         <SideBar />
+            //     </ Grid.Column>
+
+            //     <Grid.Column width={9}>
+            //         <h1 style={pawnsStyle}> Pawns</h1>
+            //         <MainFeed />
                     
-                </Grid.Column>
-
-                {/* <Grid.Column width={4} /> */}
-                
-            </Grid>
+            //     </Grid.Column>
+            // </Grid>
         )
     }
 }

@@ -90,15 +90,24 @@ class SideBarHomeFeed extends React.Component {
 
     render(){
         return(
-            <div style={{opacity: '.9'}}>
+            <section className='sidebar-feed'>
                 <Header as='h3' style={{textAlign: 'center'}}>NYT Articles!</Header>
-                <List  
+                 <List  
                     className='scrollContainer mainFont'
                     divided relaxed
                 >
                     { (this.state.articles.length === 0) ? <Loader active inline /> : this.articleCards() }
                 </List>
-            </div>
+            </section>
+            // <div style={{opacity: '.9'}}>
+            //     <Header as='h3' style={{textAlign: 'center'}}>NYT Articles!</Header>
+            //     <List  
+            //         className='scrollContainer mainFont'
+            //         divided relaxed
+            //     >
+            //         { (this.state.articles.length === 0) ? <Loader active inline /> : this.articleCards() }
+            //     </List>
+            // </div>
             
         )
         

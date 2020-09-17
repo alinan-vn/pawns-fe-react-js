@@ -117,9 +117,13 @@ class MainFeed extends React.Component {
 
     render(){
         return(
-            <div className='scrollContainer mainFont' style={{opacity: '.9'}}>
+            <section className='main-feed'>
+                <h1>Pawns!</h1>
                 { this.articleCards() }
-            </div> 
+            </section>
+            // <div className='scrollContainer mainFont' style={{opacity: '.9'}}>
+            //     { this.articleCards() }
+            // </div> 
         )
     }
 }
